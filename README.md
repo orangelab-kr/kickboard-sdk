@@ -17,6 +17,7 @@ async function main() {
     'mt2',
     (kickboard: KickboardClient, packet: Packet, done: () => void) => {
       /* 이벤트에 대한 처리를 진행합니다. */
+      const { latitude, longitude } = packet.gps?;
       console.log(`Current Location - X: ${latitude}, Y: ${longitude}`);
       done();
     }
@@ -34,13 +35,13 @@ async function main() {
   /* 위치 정보 가져오기 */
   const status = await kickboard.getConfigM2();
 
-  const { latitude, longitude } = status;
+  const { latitude, longitude } = status.gps?;
   console.log(`Current Location - X: ${latitude}, Y: ${longitude}`);
 
   /* 특정 킥보드에 대한 이벤트 등록 */
   const subscribe = await kickboard.createSubscribe();
   subscribe.on('mt2', (packet: PacketMT2) => {
-    const { latitude, longitude } = packet;
+    const { latitude, longitude } = packet.gps?;
     console.log(`Updated Location - X: ${latitude}, Y: ${longitude}`);
 
     /* 운행이 종료되었을 때 정보 이벤트 해제 */
