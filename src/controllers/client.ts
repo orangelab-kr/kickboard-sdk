@@ -266,8 +266,27 @@ export default class KickboardClient {
     await channel.deleteQueue(subscribe.id);
   }
 
-  /** todo: 코드가 비효율적, 소스 최적화 필요 */
   private async waitForResponse(
+    command: Command,
+    type: 1 | 2 | 4 | 5,
+    match?: (packet: any) => boolean,
+    seconds = 3
+  ): Promise<Packet> {
+    const response = this.waitForResponseWithoutTimeout(command, type, match);
+    const timeout = new Promise((resolve) =>
+      setTimeout(resolve, seconds * 1000)
+    );
+
+    const race = <Packet>await Promise.race([response, timeout]);
+    if (!race) {
+      throw Error(`Kickboard has no response (timeout: ${seconds}s)`);
+    }
+
+    return race;
+  }
+
+  /** todo: 코드가 비효율적, 소스 최적화 필요 */
+  private async waitForResponseWithoutTimeout(
     command: Command,
     type: 1 | 2 | 4 | 5,
     match?: (packet: any) => boolean
