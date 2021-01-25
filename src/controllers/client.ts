@@ -1,10 +1,11 @@
 import { ConsumeMessage } from 'amqplib';
 import { EventEmitter } from 'events';
 import Command from '../commands';
+import { AlarmMode, AlarmOff, AlarmOn } from '../commands/alarm';
 import { BatteryLock, BatteryUnlock } from '../commands/battery';
 import { BluetoothOff, BluetoothOn } from '../commands/bluetooth';
 import { BuzzerMode, BuzzerOff, BuzzerOn } from '../commands/buzzer';
-import { ConfigMT1, ConfigMT4, ConfigMT5 } from '../commands/config';
+import { ConfigMT1, ConfigMT4, ConfigMT5, ConfigSet } from '../commands/config';
 import {
   KickboardLock,
   KickboardStart,
@@ -92,23 +93,132 @@ export default class KickboardClient {
   }
 
   /** 하드웨어, 소프트웨어 정보를 가져옵니다. */
-  public async getConfigM1(): Promise<PacketMT1> {
+  public async getConfigMT1(): Promise<PacketMT1> {
     return <PacketMT1>await this.waitForResponse(ConfigMT1(), 1);
   }
 
   /** GPS 정보, 속도와 같은 현재 상태를 불러옵니다. */
-  public async getConfigM2(): Promise<PacketMT2> {
+  public async getConfigMT2(): Promise<PacketMT2> {
     return <PacketMT2>await this.waitForResponse(ConfigMT4(), 2);
   }
 
   /** MQTT 와 GPRS 크레덴셜 및 기타 정보를 불러옵니다. */
-  public async getConfigM4(): Promise<PacketMT4> {
+  public async getConfigMT4(): Promise<PacketMT4> {
     return <PacketMT4>await this.waitForResponse(ConfigMT4(), 4);
   }
 
   /** 배터리 정보와 상태를 가져옵니다. */
-  public async getConfigM5(): Promise<PacketMT5> {
+  public async getConfigMT5(): Promise<PacketMT5> {
     return <PacketMT5>await this.waitForResponse(ConfigMT5(), 5);
+  }
+
+  /** 알람 모드를 켭니다. */
+  public alarmOn(mode: AlarmMode, seconds = 0): void {
+    this.sendMessage(AlarmOn(mode, seconds));
+  }
+
+  /** 알람 모드를 끕니다. */
+  public alarmOff(): void {
+    this.sendMessage(AlarmOff());
+  }
+
+  /** GPRS APAD를 수정합니다. */
+  public async setGprsApad(apad: string): Promise<PacketMT4> {
+    return <PacketMT4>await this.waitForResponse(ConfigSet('apad', apad), 4);
+  }
+
+  /** GPRS USERNAME를 수정합니다. */
+  public async setGrpsUsername(username: string): Promise<PacketMT4> {
+    return <PacketMT4>(
+      await this.waitForResponse(ConfigSet('auser', username), 4)
+    );
+  }
+
+  /** GPRS PASSWORD를 수정합니다. */
+  public async setGrpsPassword(password: string): Promise<PacketMT4> {
+    return <PacketMT4>(
+      await this.waitForResponse(ConfigSet('apass', password), 4)
+    );
+  }
+
+  /** MQTT Address 수정합니다. */
+  public async setMQTTAddress(address: string): Promise<PacketMT4> {
+    return <PacketMT4>await this.waitForResponse(ConfigSet('ip', address), 4);
+  }
+
+  /** MQTT Port 수정합니다. */
+  public async setMQTTPort(port: number): Promise<PacketMT4> {
+    return <PacketMT4>(
+      await this.waitForResponse(ConfigSet('port', `${port}`), 4)
+    );
+  }
+
+  /** Report Interval Ping을 수정합니다. */
+  public async setReportIntervalPing(seconds: number): Promise<PacketMT4> {
+    return <PacketMT4>(
+      await this.waitForResponse(ConfigSet('ping', `${seconds}`), 4)
+    );
+  }
+
+  /** Report Interval Trip을 수정합니다. */
+  public async setReportIntervalTrip(seconds: number): Promise<PacketMT4> {
+    return <PacketMT4>(
+      await this.waitForResponse(ConfigSet('tripint', `${seconds}`), 4)
+    );
+  }
+
+  /** Report Interval Static을 수정합니다. */
+  public async setReportIntervalStatic(seconds: number): Promise<PacketMT4> {
+    return <PacketMT4>(
+      await this.waitForResponse(ConfigSet('statint', `${seconds}`), 4)
+    );
+  }
+
+  /** MQTT Client ID를 수정합니다. */
+  public async setMQTTClientId(clientId: string): Promise<PacketMT4> {
+    return <PacketMT4>(
+      await this.waitForResponse(ConfigSet('mqid', clientId), 4)
+    );
+  }
+
+  /** MQTT Username을 수정합니다. */
+  public async setMQTTUsername(username: string): Promise<PacketMT4> {
+    return <PacketMT4>(
+      await this.waitForResponse(ConfigSet('mquser', username), 4)
+    );
+  }
+
+  /** MQTT Password을 수정합니다. */
+  public async setMQTTPassword(password: string): Promise<PacketMT4> {
+    return <PacketMT4>(
+      await this.waitForResponse(ConfigSet('mqpass', password), 4)
+    );
+  }
+
+  /** 속도를 수정합니다. */
+  public async setSpeedLimit(speed: number): Promise<PacketMT4> {
+    return <PacketMT4>(
+      await this.waitForResponse(ConfigSet('speedlim', `${speed}`), 4)
+    );
+  }
+
+  /** 충격 기준치를 수정합니다. */
+  public async setImpact(impact: number): Promise<PacketMT4> {
+    return <PacketMT4>(
+      await this.waitForResponse(ConfigSet('impact', `${impact}`), 4)
+    );
+  }
+
+  /** 블루투스 인증 키를 변경합니다. */
+  public async setBluetoothKey(key: string): Promise<PacketMT4> {
+    return <PacketMT4>await this.waitForResponse(ConfigSet('blekey', key), 4);
+  }
+
+  /** 네트워크 모드를 변경합니다. */
+  public async setNetworkMode(mode: 0 | 1 | 2 | 3 | 4): Promise<PacketMT4> {
+    return <PacketMT4>(
+      await this.waitForResponse(ConfigSet('netconfig', `${mode}`), 4)
+    );
   }
 
   /** 구독을 생성합니다. 바로 듣기가 활성화되지 않습니다. */

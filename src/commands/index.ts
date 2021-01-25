@@ -8,6 +8,7 @@ import {
   ConfigMT4Command,
   ConfigMT5Command,
   ConfigRestoreCommand,
+  ConfigSetCommand,
 } from './config';
 import {
   KickboardLockCommand,
@@ -27,7 +28,8 @@ export type ConfigCommand =
   | ConfigMT2Command
   | ConfigMT4Command
   | ConfigMT5Command
-  | ConfigRestoreCommand;
+  | ConfigRestoreCommand
+  | ConfigSetCommand;
 export type KickboardCommand =
   | KickboardStartCommand
   | KickboardStopCommand

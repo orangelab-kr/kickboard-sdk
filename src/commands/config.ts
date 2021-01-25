@@ -1,3 +1,5 @@
+import { OriginalPacketMT4Convert } from '../packets/mt4';
+
 /** Config MT4 Command */
 export interface ConfigMT4Command {
   cmd: 'getconfig';
@@ -41,4 +43,17 @@ export interface ConfigRestoreCommand {
 
 export function ConfigRestore(): ConfigRestoreCommand {
   return { cmd: 'restore' };
+}
+
+/** Config Restore Command */
+export interface ConfigSetCommand {
+  cmd: 'param';
+  value: string;
+}
+
+export function ConfigSet(
+  key: keyof OriginalPacketMT4Convert,
+  value: string
+): ConfigSetCommand {
+  return { cmd: 'param', value: `${key},${value}` };
 }
