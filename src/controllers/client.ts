@@ -28,13 +28,13 @@ export default class KickboardClient {
 
   /** 킥보드를 시작합니다. */
   public async start(): Promise<PacketMT2> {
-    const match = (packet: PacketMT2) => packet.vehicle?.isEnabled === true;
+    const match = (packet: PacketMT2) => packet.vehicle.isEnabled === true;
     return <PacketMT2>await this.waitForResponse(KickboardStart(), 2, match);
   }
 
   /** 킥보드를 종료합니다. */
   public async stop(): Promise<PacketMT2> {
-    const match = (packet: PacketMT2) => packet.vehicle?.isEnabled === false;
+    const match = (packet: PacketMT2) => packet.vehicle.isEnabled === false;
     return <PacketMT2>await this.waitForResponse(KickboardStop(), 2, match);
   }
 
@@ -60,13 +60,13 @@ export default class KickboardClient {
 
   /** 부저를 킵니다. */
   public async buzzerOn(mode: BuzzerMode, seconds = 0): Promise<void> {
-    const match = (packet: PacketMT2) => packet.status?.isBuzzerOn === true;
+    const match = (packet: PacketMT2) => packet.status.isBuzzerOn === true;
     await this.waitForResponse(BuzzerOn(mode, seconds), 2, match);
   }
 
   /** 부저를 끕니다. */
   public async buzzerOff(): Promise<void> {
-    const match = (packet: PacketMT2) => packet.status?.isBuzzerOn === false;
+    const match = (packet: PacketMT2) => packet.status.isBuzzerOn === false;
     await this.waitForResponse(BuzzerOff(), 2, match);
   }
 
@@ -82,13 +82,13 @@ export default class KickboardClient {
 
   /** 불을 킵니다. */
   public async lightOn(mode: LightMode, seconds = 0): Promise<void> {
-    const match = (packet: PacketMT2) => packet.status?.isLightsOn === true;
+    const match = (packet: PacketMT2) => packet.status.isLightsOn === true;
     await this.waitForResponse(LightOn(mode, seconds), 2, match);
   }
 
   /** 불을 끕니다. */
   public async lightOff(): Promise<void> {
-    const match = (packet: PacketMT2) => packet.status?.isLightsOn === false;
+    const match = (packet: PacketMT2) => packet.status.isLightsOn === false;
     await this.waitForResponse(LightOff(), 2, match);
   }
 

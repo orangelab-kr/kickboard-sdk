@@ -17,12 +17,12 @@ class KickboardClient {
     }
     /** 킥보드를 시작합니다. */
     async start() {
-        const match = (packet) => packet.vehicle?.isEnabled === true;
+        const match = (packet) => packet.vehicle.isEnabled === true;
         return await this.waitForResponse(kickboard_1.KickboardStart(), 2, match);
     }
     /** 킥보드를 종료합니다. */
     async stop() {
-        const match = (packet) => packet.vehicle?.isEnabled === false;
+        const match = (packet) => packet.vehicle.isEnabled === false;
         return await this.waitForResponse(kickboard_1.KickboardStop(), 2, match);
     }
     /** 킥보드를 잠금합니다. */
@@ -43,12 +43,12 @@ class KickboardClient {
     }
     /** 부저를 킵니다. */
     async buzzerOn(mode, seconds = 0) {
-        const match = (packet) => packet.status?.isBuzzerOn === true;
+        const match = (packet) => packet.status.isBuzzerOn === true;
         await this.waitForResponse(buzzer_1.BuzzerOn(mode, seconds), 2, match);
     }
     /** 부저를 끕니다. */
     async buzzerOff() {
-        const match = (packet) => packet.status?.isBuzzerOn === false;
+        const match = (packet) => packet.status.isBuzzerOn === false;
         await this.waitForResponse(buzzer_1.BuzzerOff(), 2, match);
     }
     /** 블루투스를 킵니다. */
@@ -61,12 +61,12 @@ class KickboardClient {
     }
     /** 불을 킵니다. */
     async lightOn(mode, seconds = 0) {
-        const match = (packet) => packet.status?.isLightsOn === true;
+        const match = (packet) => packet.status.isLightsOn === true;
         await this.waitForResponse(light_1.LightOn(mode, seconds), 2, match);
     }
     /** 불을 끕니다. */
     async lightOff() {
-        const match = (packet) => packet.status?.isLightsOn === false;
+        const match = (packet) => packet.status.isLightsOn === false;
         await this.waitForResponse(light_1.LightOff(), 2, match);
     }
     /** 하드웨어, 소프트웨어 정보를 가져옵니다. */
