@@ -48,6 +48,7 @@ function default_1(original) {
         type: 5,
         batterySN: original.batsn,
         totalTrip: original.totrip,
+        totalTime: original.totime,
         totalCapacity: original.tocap,
         cellType: original.ctype,
         cells: original.cell,

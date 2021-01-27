@@ -72,10 +72,6 @@ __decorate([
     __metadata("design:type", Number)
 ], PacketMT4.prototype, "type", void 0);
 __decorate([
-    class_validator_1.IsString(),
-    __metadata("design:type", String)
-], PacketMT4.prototype, "parameters", void 0);
-__decorate([
     class_validator_1.IsObject(),
     __metadata("design:type", PacketMT4Gprs)
 ], PacketMT4.prototype, "gprs", void 0);
@@ -124,6 +120,7 @@ function getNetworkMode(netconfig) {
         case '4':
             return 'td-scdma';
     }
+    return 'auto';
 }
 function getObjectFromArray(original) {
     const packet = {};

@@ -1,35 +1,35 @@
 /** 킥보드 일정 간격으로 발송되는 프로토콜 인터페이스입니다. */
 import { Moment } from 'moment';
 export declare class PacketMT2Gps {
-    timestamp?: Moment;
-    latitude?: number;
-    longitude?: number;
-    satelliteUsedCount?: number;
-    isValid?: boolean;
-    speed?: number;
+    timestamp: Moment;
+    latitude: number;
+    longitude: number;
+    satelliteUsedCount: number;
+    isValid: boolean;
+    speed: number;
 }
 export declare class PacketMT2Network {
-    isRoaming?: boolean;
-    signalStrength?: number;
-    mcc?: number;
-    mnc?: number;
+    isRoaming: boolean;
+    signalStrength: number;
+    mcc: number;
+    mnc: number;
 }
 export declare class PacketMT2Trip {
-    time?: number;
-    distance?: number;
+    time: number;
+    distance: number;
 }
 export declare class PacketMT2Status {
-    isLightsOn?: boolean;
-    isBuzzerOn?: boolean;
-    isControllerChecked?: boolean;
-    isIotChecked?: boolean;
-    isBatteryChecked?: boolean;
-    isFailDown?: boolean;
-    isEBSBrakeOn?: boolean;
-    isKickstandOn?: boolean;
-    isLineLocked?: boolean;
-    isBatteryLocked?: boolean;
-    speed?: number;
+    isLightsOn: boolean;
+    isBuzzerOn: boolean;
+    isControllerChecked: boolean;
+    isIotChecked: boolean;
+    isBatteryChecked: boolean;
+    isFailDown: boolean;
+    isEBSBrakeOn: boolean;
+    isKickstandOn: boolean;
+    isLineLocked: boolean;
+    isBatteryLocked: boolean;
+    speed: number;
 }
 export declare enum PacketMT2ReportReason {
     UNAUTHORIZED_MOVEMENT = 0,
@@ -43,29 +43,29 @@ export declare enum PacketMT2ReportReason {
     TRIP_STOP = 8
 }
 export declare class PacketMT2Vehicle {
-    isEnabled?: boolean;
-    reportReason?: PacketMT2ReportReason[];
+    isEnabled: boolean;
+    reportReason: PacketMT2ReportReason[];
 }
 export declare class PacketMT2PowerDetails {
-    battery?: number;
-    isCharging?: boolean;
+    battery: number;
+    isCharging: boolean;
 }
 export declare class PacketMT2Power {
-    scooter?: PacketMT2PowerDetails;
-    iot?: PacketMT2PowerDetails;
-    batteryCycle?: number;
-    speedLimit?: number;
+    scooter: PacketMT2PowerDetails;
+    iot: PacketMT2PowerDetails;
+    batteryCycle: number;
+    speedLimit: number;
 }
 export declare class PacketMT2 {
-    type?: 2;
-    timestamp?: Moment;
-    messageNumber?: number;
-    gps?: PacketMT2Gps;
-    network?: PacketMT2Network;
-    trip?: PacketMT2Trip;
-    vehicle?: PacketMT2Vehicle;
-    power?: PacketMT2Power;
-    status?: PacketMT2Status;
+    type: 2;
+    timestamp: Moment;
+    messageNumber: number;
+    gps: PacketMT2Gps;
+    network: PacketMT2Network;
+    trip: PacketMT2Trip;
+    vehicle: PacketMT2Vehicle;
+    power: PacketMT2Power;
+    status: PacketMT2Status;
 }
 export interface OriginalPacketMT2 {
     mt: 2 /** 메세지 타입 */;
