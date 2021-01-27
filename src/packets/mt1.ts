@@ -13,34 +13,34 @@ export class PacketMT1Version {
   @IsInt()
   @Min(0)
   @Max(65535)
-  hardware?: number;
+  hardware!: number;
 
   @IsInt()
   @Min(0)
   @Max(65535)
-  software?: number;
+  software!: number;
 }
 
 export class PacketMT1 {
   @IsInt()
-  type?: 1;
+  type!: 1;
 
   @IsString()
-  iccId?: string;
+  iccId!: string;
 
   @IsInt()
   @Min(0)
   @Max(65535)
-  productId?: number;
+  productId!: number;
 
   @IsMACAddress()
-  macAddress?: string;
+  macAddress!: string;
 
   @IsObject()
-  iotVersion?: PacketMT1Version;
+  iotVersion!: PacketMT1Version;
 
   @IsObject()
-  ecuVersion?: PacketMT1Version;
+  ecuVersion!: PacketMT1Version;
 }
 
 export interface OriginalPacketMT1 {

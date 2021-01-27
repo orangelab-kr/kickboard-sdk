@@ -13,76 +13,73 @@ import {
 
 export class PacketMT4Gprs {
   @IsString()
-  apad?: string;
+  apad!: string;
 
   @IsString()
-  username?: string;
+  username!: string;
 
   @IsString()
-  password?: string;
+  password!: string;
 }
 
 export class PacketMT4Mqtt {
   @IsString()
-  ipAddress?: string;
+  ipAddress!: string;
 
   @IsPort()
-  port?: number;
+  port!: number;
 
   @IsString()
-  clientId?: string;
+  clientId!: string;
 
   @IsString()
-  username?: string;
+  username!: string;
 
   @IsString()
-  password?: string;
+  password!: string;
 }
 
 export class PacketMT4ReportInterval {
   @IsInt()
-  ping?: number;
+  ping!: number;
 
   @IsInt()
-  trip?: number;
+  trip!: number;
 
   @IsInt()
-  static?: number;
+  static!: number;
 }
 
 export class PacketMT4 {
   @IsInt()
-  type?: 4;
-
-  @IsString()
-  parameters?: string;
+  type!: 4;
 
   @IsObject()
-  gprs?: PacketMT4Gprs;
+  gprs!: PacketMT4Gprs;
 
   @IsObject()
-  mqtt?: PacketMT4Mqtt;
+  mqtt!: PacketMT4Mqtt;
 
   @IsObject()
-  reportInterval?: PacketMT4ReportInterval;
+  reportInterval!: PacketMT4ReportInterval;
 
   @IsArray()
-  networks?: string[];
+  networks!: string[];
 
   @IsInt()
-  impact?: number;
+  impact!: number;
 
   @IsString()
-  bluetoothKey?: string;
+  bluetoothKey!: string;
 
   @IsInt()
   @Min(8)
   @Max(50)
-  speedLimit?: number;
+  speedLimit!: number;
 
   @IsString()
   @IsIn(['auto', 'gsm', 'wcdma', 'lte', 'td-scdma'])
-  networkMode?: 'auto' | 'gsm' | 'wcdma' | 'lte' | 'td-scdma';
+  networkMode!: 'auto' | 'gsm' | 'wcdma' | 'lte' | 'td-scdma';
 }
 
 export interface OriginalPacketMT4 {
@@ -91,30 +88,30 @@ export interface OriginalPacketMT4 {
 }
 
 export interface OriginalPacketMT4Convert {
-  apad?: string /** GPRS Apad */;
-  auser?: string /** GPRS 사용자 */;
-  apass?: string /** GPRS 비밀번호 */;
-  ip?: string /** MQTT 아이피 */;
-  port?: string /** MQTT 포트 */;
-  ping?: string /** 미사용시: MT2 보고 주기 */;
-  tripint?: string /** 사용시: MT2 보고 주기*/;
-  statint?: string /** 고정 MT2 보고 주기*/;
-  mqid?: string /** MQTT 클라이언트ID */;
-  mquser?: string /** MQTT 사용자 */;
-  mqpass?: string /** MQTT 비밀번호 */;
-  speedlim?: string /** 속도 제한 */;
-  network?: string /** 네트워크1 */;
-  network2?: string /** 네트워크2 */;
-  network3?: string /** 네트워크3 */;
-  pdop?: string /** 알 수 없음 */;
-  impact?: string /** 충격 감도 */;
-  blekey?: string /** 블루투스 KEY */;
-  netconfig?: string /** 네트워크 설정 */;
+  apad: string /** GPRS Apad */;
+  auser: string /** GPRS 사용자 */;
+  apass: string /** GPRS 비밀번호 */;
+  ip: string /** MQTT 아이피 */;
+  port: string /** MQTT 포트 */;
+  ping: string /** 미사용시: MT2 보고 주기 */;
+  tripint: string /** 사용시: MT2 보고 주기*/;
+  statint: string /** 고정 MT2 보고 주기*/;
+  mqid: string /** MQTT 클라이언트ID */;
+  mquser: string /** MQTT 사용자 */;
+  mqpass: string /** MQTT 비밀번호 */;
+  speedlim: string /** 속도 제한 */;
+  network: string /** 네트워크1 */;
+  network2: string /** 네트워크2 */;
+  network3: string /** 네트워크3 */;
+  pdop: string /** 알 수 없음 */;
+  impact: string /** 충격 감도 */;
+  blekey: string /** 블루투스 KEY */;
+  netconfig: string /** 네트워크 설정 */;
 }
 
 function getNetworkMode(
   netconfig: string | undefined
-): 'auto' | 'gsm' | 'wcdma' | 'lte' | 'td-scdma' | undefined {
+): 'auto' | 'gsm' | 'wcdma' | 'lte' | 'td-scdma' {
   switch (netconfig) {
     case '0':
       return 'auto';
@@ -127,12 +124,14 @@ function getNetworkMode(
     case '4':
       return 'td-scdma';
   }
+
+  return 'auto';
 }
 
 function getObjectFromArray(
   original: OriginalPacketMT4
 ): OriginalPacketMT4Convert {
-  const packet: OriginalPacketMT4Convert = {};
+  const packet: any = {};
   original.pa.forEach(({ name, value }) => (packet[name] = value));
   return packet;
 }

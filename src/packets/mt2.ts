@@ -13,91 +13,91 @@ import moment, { Moment } from 'moment';
 
 export class PacketMT2Gps {
   @IsNotEmpty()
-  timestamp?: Moment;
+  timestamp!: Moment;
 
   @IsInt()
   @Min(-90)
   @Max(90)
-  latitude?: number;
+  latitude!: number;
 
   @IsInt()
   @Min(-180)
   @Max(180)
-  longitude?: number;
+  longitude!: number;
 
   @IsInt()
   @Min(0)
   @Max(255)
-  satelliteUsedCount?: number;
+  satelliteUsedCount!: number;
 
   @IsBoolean()
-  isValid?: boolean;
+  isValid!: boolean;
 
   @IsInt()
   @Min(0)
   @Max(255)
-  speed?: number;
+  speed!: number;
 }
 
 export class PacketMT2Network {
   @IsBoolean()
-  isRoaming?: boolean;
+  isRoaming!: boolean;
 
   @IsInt()
   @Min(0)
   @Max(99)
-  signalStrength?: number;
+  signalStrength!: number;
 
   @IsInt()
-  mcc?: number;
+  mcc!: number;
 
   @IsInt()
-  mnc?: number;
+  mnc!: number;
 }
 
 export class PacketMT2Trip {
   @IsInt()
-  time?: number;
+  time!: number;
 
   @IsInt()
-  distance?: number;
+  distance!: number;
 }
 
 export class PacketMT2Status {
   @IsBoolean()
-  isLightsOn?: boolean;
+  isLightsOn!: boolean;
 
   @IsBoolean()
-  isBuzzerOn?: boolean;
+  isBuzzerOn!: boolean;
 
   @IsBoolean()
-  isControllerChecked?: boolean;
+  isControllerChecked!: boolean;
 
   @IsBoolean()
-  isIotChecked?: boolean;
+  isIotChecked!: boolean;
 
   @IsBoolean()
-  isBatteryChecked?: boolean;
+  isBatteryChecked!: boolean;
 
   @IsBoolean()
-  isFailDown?: boolean;
+  isFailDown!: boolean;
 
   @IsBoolean()
-  isEBSBrakeOn?: boolean;
+  isEBSBrakeOn!: boolean;
 
   @IsBoolean()
-  isKickstandOn?: boolean;
+  isKickstandOn!: boolean;
 
   @IsBoolean()
-  isLineLocked?: boolean;
+  isLineLocked!: boolean;
 
   @IsBoolean()
-  isBatteryLocked?: boolean;
+  isBatteryLocked!: boolean;
 
   @IsInt()
   @Min(0)
   @Max(255)
-  speed?: number;
+  speed!: number;
 }
 
 export enum PacketMT2ReportReason {
@@ -114,65 +114,65 @@ export enum PacketMT2ReportReason {
 
 export class PacketMT2Vehicle {
   @IsBoolean()
-  isEnabled?: boolean;
+  isEnabled!: boolean;
 
   @IsArray()
-  reportReason?: PacketMT2ReportReason[];
+  reportReason!: PacketMT2ReportReason[];
 }
 
 export class PacketMT2PowerDetails {
   @IsInt()
   @Min(0)
   @Max(100)
-  battery?: number;
+  battery!: number;
 
   @IsBoolean()
-  isCharging?: boolean;
+  isCharging!: boolean;
 }
 
 export class PacketMT2Power {
   @IsObject()
-  scooter?: PacketMT2PowerDetails;
+  scooter!: PacketMT2PowerDetails;
 
   @IsObject()
-  iot?: PacketMT2PowerDetails;
+  iot!: PacketMT2PowerDetails;
 
   @IsInt()
-  batteryCycle?: number;
+  batteryCycle!: number;
 
   @IsInt()
-  speedLimit?: number;
+  speedLimit!: number;
 }
 
 export class PacketMT2 {
   @IsInt()
-  type?: 2;
+  type!: 2;
 
   @IsNotEmpty()
-  timestamp?: Moment;
+  timestamp!: Moment;
 
   @IsInt()
   @Min(0)
   @Max(255)
-  messageNumber?: number;
+  messageNumber!: number;
 
   @IsObject()
-  gps?: PacketMT2Gps;
+  gps!: PacketMT2Gps;
 
   @IsObject()
-  network?: PacketMT2Network;
+  network!: PacketMT2Network;
 
   @IsObject()
-  trip?: PacketMT2Trip;
+  trip!: PacketMT2Trip;
 
   @IsObject()
-  vehicle?: PacketMT2Vehicle;
+  vehicle!: PacketMT2Vehicle;
 
   @IsObject()
-  power?: PacketMT2Power;
+  power!: PacketMT2Power;
 
   @IsObject()
-  status?: PacketMT2Status;
+  status!: PacketMT2Status;
 }
 
 export interface OriginalPacketMT2 {

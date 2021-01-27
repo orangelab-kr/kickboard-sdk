@@ -4,35 +4,35 @@ import { IsArray, IsInt, IsString } from 'class-validator';
 
 export class PacketMT5 {
   @IsInt()
-  type?: 5;
+  type!: 5;
 
   @IsString()
-  batterySN?: string;
+  batterySN!: string;
 
   @IsInt()
-  totalTrip?: number;
+  totalTrip!: number;
 
   @IsInt()
-  totalTime?: number;
+  totalTime!: number;
 
   @IsInt()
-  totalCapacity?: number;
+  totalCapacity!: number;
 
   @IsString()
-  cellType?: string;
+  cellType!: string;
 
   @IsArray()
-  cells?: number[];
+  cells!: number[];
 }
 
 export interface OriginalPacketMT5 {
-  mt?: 5;
-  batsn?: string /** 배터리 시리얼 넘버 */;
-  totrip?: number /** 총 주행 거리 */;
-  totime?: number /** 총 주행 시간 */;
-  tocap?: number /** 총 용량 */;
-  ctype?: string /** 셀 타입 */;
-  cell?: number[] /** 셀 볼트수 */;
+  mt: 5;
+  batsn: string /** 배터리 시리얼 넘버 */;
+  totrip: number /** 총 주행 거리 */;
+  totime: number /** 총 주행 시간 */;
+  tocap: number /** 총 용량 */;
+  ctype: string /** 셀 타입 */;
+  cell: number[] /** 셀 볼트수 */;
 }
 
 export default function (original: OriginalPacketMT5): PacketMT5 {
@@ -40,6 +40,7 @@ export default function (original: OriginalPacketMT5): PacketMT5 {
     type: 5,
     batterySN: original.batsn,
     totalTrip: original.totrip,
+    totalTime: original.totime,
     totalCapacity: original.tocap,
     cellType: original.ctype,
     cells: original.cell,
