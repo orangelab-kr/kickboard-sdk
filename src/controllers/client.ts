@@ -2,22 +2,24 @@ import { ConsumeMessage } from 'amqplib';
 import { EventEmitter } from 'events';
 import Command from '../commands';
 import { AlarmMode, AlarmOff, AlarmOn } from '../commands/alarm';
-import { BatteryLock, BatteryUnlock } from '../commands/battery';
+import { BatteryLock, BatteryStatus, BatteryUnlock } from '../commands/battery';
 import { BluetoothOff, BluetoothOn } from '../commands/bluetooth';
 import { BuzzerMode, BuzzerOff, BuzzerOn } from '../commands/buzzer';
-import { ConfigMT1, ConfigMT4, ConfigMT5, ConfigSet } from '../commands/config';
+import { ConfigGet, ConfigSet } from '../commands/config';
 import {
+  KickboardInfo,
   KickboardLock,
   KickboardStart,
+  KickboardStatus,
   KickboardStop,
   KickboardUnlock,
 } from '../commands/kickboard';
 import { LightMode, LightOff, LightOn } from '../commands/light';
 import { Packet } from '../packets';
-import { PacketMT1 } from '../packets/mt1';
-import { PacketMT2 } from '../packets/mt2';
-import { PacketMT4 } from '../packets/mt4';
-import { PacketMT5 } from '../packets/mt5';
+import { PacketBattery } from '../packets/battery';
+import { PacketConfig } from '../packets/config';
+import { PacketInfo } from '../packets/info';
+import { PacketStatus } from '../packets/status';
 import KickboardService from './service';
 
 export default class KickboardClient {
@@ -27,15 +29,19 @@ export default class KickboardClient {
   constructor(private service: KickboardService, public kickboardId: string) {}
 
   /** 킥보드를 시작합니다. */
-  public async start(): Promise<PacketMT2> {
-    const match = (packet: PacketMT2) => packet.vehicle.isEnabled === true;
-    return <PacketMT2>await this.waitForResponse(KickboardStart(), 2, match);
+  public async start(): Promise<PacketStatus> {
+    const match = (packet: PacketStatus) => packet.vehicle.isEnabled === true;
+    return <PacketStatus>(
+      await this.waitForResponse(KickboardStart(), 'status', match)
+    );
   }
 
   /** 킥보드를 종료합니다. */
-  public async stop(): Promise<PacketMT2> {
-    const match = (packet: PacketMT2) => packet.vehicle.isEnabled === false;
-    return <PacketMT2>await this.waitForResponse(KickboardStop(), 2, match);
+  public async stop(): Promise<PacketStatus> {
+    const match = (packet: PacketStatus) => packet.vehicle.isEnabled === false;
+    return <PacketStatus>(
+      await this.waitForResponse(KickboardStop(), 'status', match)
+    );
   }
 
   /** 킥보드를 잠금합니다. */
@@ -60,14 +66,14 @@ export default class KickboardClient {
 
   /** 부저를 킵니다. */
   public async buzzerOn(mode: BuzzerMode, seconds = 0): Promise<void> {
-    const match = (packet: PacketMT2) => packet.status.isBuzzerOn === true;
-    await this.waitForResponse(BuzzerOn(mode, seconds), 2, match);
+    const match = (packet: PacketStatus) => packet.isBuzzerOn === true;
+    await this.waitForResponse(BuzzerOn(mode, seconds), 'status', match);
   }
 
   /** 부저를 끕니다. */
   public async buzzerOff(): Promise<void> {
-    const match = (packet: PacketMT2) => packet.status.isBuzzerOn === false;
-    await this.waitForResponse(BuzzerOff(), 2, match);
+    const match = (packet: PacketStatus) => packet.isBuzzerOn === false;
+    await this.waitForResponse(BuzzerOff(), 'status', match);
   }
 
   /** 블루투스를 킵니다. */
@@ -82,34 +88,38 @@ export default class KickboardClient {
 
   /** 불을 킵니다. */
   public async lightOn(mode: LightMode, seconds = 0): Promise<void> {
-    const match = (packet: PacketMT2) => packet.status.isLightsOn === true;
-    await this.waitForResponse(LightOn(mode, seconds), 2, match);
+    const match = (packet: PacketStatus) => packet.isLightsOn === true;
+    await this.waitForResponse(LightOn(mode, seconds), 'status', match);
   }
 
   /** 불을 끕니다. */
   public async lightOff(): Promise<void> {
-    const match = (packet: PacketMT2) => packet.status.isLightsOn === false;
-    await this.waitForResponse(LightOff(), 2, match);
+    const match = (packet: PacketStatus) => packet.isLightsOn === false;
+    await this.waitForResponse(LightOff(), 'status', match);
   }
 
   /** 하드웨어, 소프트웨어 정보를 가져옵니다. */
-  public async getConfigMT1(): Promise<PacketMT1> {
-    return <PacketMT1>await this.waitForResponse(ConfigMT1(), 1);
+  public async getInfo(): Promise<PacketInfo> {
+    return <PacketInfo>await this.waitForResponse(KickboardInfo(), 'info');
   }
 
   /** GPS 정보, 속도와 같은 현재 상태를 불러옵니다. */
-  public async getConfigMT2(): Promise<PacketMT2> {
-    return <PacketMT2>await this.waitForResponse(ConfigMT4(), 2);
+  public async getStatus(): Promise<PacketStatus> {
+    return <PacketStatus>(
+      await this.waitForResponse(KickboardStatus(), 'status')
+    );
   }
 
   /** MQTT 와 GPRS 크레덴셜 및 기타 정보를 불러옵니다. */
-  public async getConfigMT4(): Promise<PacketMT4> {
-    return <PacketMT4>await this.waitForResponse(ConfigMT4(), 4);
+  public async getConfig(): Promise<PacketConfig> {
+    return <PacketConfig>await this.waitForResponse(ConfigGet(), 'config');
   }
 
   /** 배터리 정보와 상태를 가져옵니다. */
-  public async getConfigMT5(): Promise<PacketMT5> {
-    return <PacketMT5>await this.waitForResponse(ConfigMT5(), 5);
+  public async getBattery(): Promise<PacketBattery> {
+    return <PacketBattery>(
+      await this.waitForResponse(BatteryStatus(), 'battery')
+    );
   }
 
   /** 알람 모드를 켭니다. */
@@ -123,101 +133,107 @@ export default class KickboardClient {
   }
 
   /** GPRS APAD를 수정합니다. */
-  public async setGprsApad(apad: string): Promise<PacketMT4> {
-    return <PacketMT4>await this.waitForResponse(ConfigSet('apad', apad), 4);
+  public async setGprsApad(apad: string): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('apad', apad), 'config')
+    );
   }
 
   /** GPRS USERNAME를 수정합니다. */
-  public async setGrpsUsername(username: string): Promise<PacketMT4> {
-    return <PacketMT4>(
-      await this.waitForResponse(ConfigSet('auser', username), 4)
+  public async setGrpsUsername(username: string): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('auser', username), 'config')
     );
   }
 
   /** GPRS PASSWORD를 수정합니다. */
-  public async setGrpsPassword(password: string): Promise<PacketMT4> {
-    return <PacketMT4>(
-      await this.waitForResponse(ConfigSet('apass', password), 4)
+  public async setGrpsPassword(password: string): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('apass', password), 'config')
     );
   }
 
   /** MQTT Address 수정합니다. */
-  public async setMQTTAddress(address: string): Promise<PacketMT4> {
-    return <PacketMT4>await this.waitForResponse(ConfigSet('ip', address), 4);
+  public async setMQTTAddress(address: string): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('ip', address), 'config')
+    );
   }
 
   /** MQTT Port 수정합니다. */
-  public async setMQTTPort(port: number): Promise<PacketMT4> {
-    return <PacketMT4>(
-      await this.waitForResponse(ConfigSet('port', `${port}`), 4)
+  public async setMQTTPort(port: number): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('port', `${port}`), 'config')
     );
   }
 
   /** Report Interval Ping을 수정합니다. */
-  public async setReportIntervalPing(seconds: number): Promise<PacketMT4> {
-    return <PacketMT4>(
-      await this.waitForResponse(ConfigSet('ping', `${seconds}`), 4)
+  public async setReportIntervalPing(seconds: number): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('ping', `${seconds}`), 'config')
     );
   }
 
   /** Report Interval Trip을 수정합니다. */
-  public async setReportIntervalTrip(seconds: number): Promise<PacketMT4> {
-    return <PacketMT4>(
-      await this.waitForResponse(ConfigSet('tripint', `${seconds}`), 4)
+  public async setReportIntervalTrip(seconds: number): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('tripint', `${seconds}`), 'config')
     );
   }
 
   /** Report Interval Static을 수정합니다. */
-  public async setReportIntervalStatic(seconds: number): Promise<PacketMT4> {
-    return <PacketMT4>(
-      await this.waitForResponse(ConfigSet('statint', `${seconds}`), 4)
+  public async setReportIntervalStatic(seconds: number): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('statint', `${seconds}`), 'config')
     );
   }
 
   /** MQTT Client ID를 수정합니다. */
-  public async setMQTTClientId(clientId: string): Promise<PacketMT4> {
-    return <PacketMT4>(
-      await this.waitForResponse(ConfigSet('mqid', clientId), 4)
+  public async setMQTTClientId(clientId: string): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('mqid', clientId), 'config')
     );
   }
 
   /** MQTT Username을 수정합니다. */
-  public async setMQTTUsername(username: string): Promise<PacketMT4> {
-    return <PacketMT4>(
-      await this.waitForResponse(ConfigSet('mquser', username), 4)
+  public async setMQTTUsername(username: string): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('mquser', username), 'config')
     );
   }
 
   /** MQTT Password을 수정합니다. */
-  public async setMQTTPassword(password: string): Promise<PacketMT4> {
-    return <PacketMT4>(
-      await this.waitForResponse(ConfigSet('mqpass', password), 4)
+  public async setMQTTPassword(password: string): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('mqpass', password), 'config')
     );
   }
 
   /** 속도를 수정합니다. */
-  public async setSpeedLimit(speed: number): Promise<PacketMT4> {
-    return <PacketMT4>(
-      await this.waitForResponse(ConfigSet('speedlim', `${speed}`), 4)
+  public async setSpeedLimit(speed: number): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('speedlim', `${speed}`), 'config')
     );
   }
 
   /** 충격 기준치를 수정합니다. */
-  public async setImpact(impact: number): Promise<PacketMT4> {
-    return <PacketMT4>(
-      await this.waitForResponse(ConfigSet('impact', `${impact}`), 4)
+  public async setImpact(impact: number): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('impact', `${impact}`), 'config')
     );
   }
 
   /** 블루투스 인증 키를 변경합니다. */
-  public async setBluetoothKey(key: string): Promise<PacketMT4> {
-    return <PacketMT4>await this.waitForResponse(ConfigSet('blekey', key), 4);
+  public async setBluetoothKey(key: string): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('blekey', key), 'config')
+    );
   }
 
   /** 네트워크 모드를 변경합니다. */
-  public async setNetworkMode(mode: 0 | 1 | 2 | 3 | 4): Promise<PacketMT4> {
-    return <PacketMT4>(
-      await this.waitForResponse(ConfigSet('netconfig', `${mode}`), 4)
+  public async setNetworkMode(mode: 0 | 1 | 2 | 3 | 4): Promise<PacketConfig> {
+    return <PacketConfig>(
+      await this.waitForResponse(ConfigSet('netconfig', `${mode}`), 'config')
     );
   }
 
@@ -232,7 +248,8 @@ export default class KickboardClient {
 
   /** 생성한 구독에 듣기를 활성화합니다. */
   public async startSubscribe(
-    subscribe: EventEmitter & { id: string }
+    subscribe: EventEmitter & { id: string },
+    timeout?: number
   ): Promise<void> {
     const { channel } = this.service;
     if (!channel) throw Error('Cannot find channel from Kickboard Service.');
@@ -248,11 +265,12 @@ export default class KickboardClient {
       const packet = this.service.getPacket(res);
       if (!packet) return;
 
-      const eventName = `mt${packet.type}`;
+      const eventName = packet.type;
       subscribe.emit(eventName, packet);
       subscribe.emit('all', packet);
     };
 
+    if (timeout) setTimeout(() => this.stopSubscribe(subscribe), timeout);
     await channel.consume(subscribe.id, onMessage, options);
   }
 
@@ -268,15 +286,19 @@ export default class KickboardClient {
 
   private async waitForResponse(
     command: Command,
-    type: 1 | 2 | 4 | 5,
+    type: 'info' | 'status' | 'config' | 'battery',
     match?: (packet: any) => boolean,
     seconds = 3
   ): Promise<Packet> {
-    const response = this.waitForResponseWithoutTimeout(command, type, match);
-    const timeout = new Promise((resolve) =>
-      setTimeout(resolve, seconds * 1000)
+    const ms = seconds * 1000;
+    const response = this.waitForResponseWithoutTimeout(
+      command,
+      type,
+      match,
+      ms
     );
 
+    const timeout = new Promise((resolve) => setTimeout(resolve, ms));
     const race = <Packet>await Promise.race([response, timeout]);
     if (!race) {
       throw Error(`Kickboard has no response (timeout: ${seconds}s)`);
@@ -288,15 +310,16 @@ export default class KickboardClient {
   /** todo: 코드가 비효율적, 소스 최적화 필요 */
   private async waitForResponseWithoutTimeout(
     command: Command,
-    type: 1 | 2 | 4 | 5,
-    match?: (packet: any) => boolean
+    type: 'info' | 'status' | 'config' | 'battery',
+    match?: (packet: any) => boolean,
+    timeout?: number
   ): Promise<Packet> {
     const { channel } = this.service;
     if (!channel) throw Error('Cannot find channel from Kickboard Service.');
 
     const subscribe = await this.createSubscribe();
     return new Promise(async (resolve) => {
-      const eventName = `mt${type}`;
+      const eventName = type;
       subscribe.on(eventName, async (packet: Packet) => {
         if (match ? match(packet) : true) {
           resolve(packet);
@@ -304,7 +327,7 @@ export default class KickboardClient {
         }
       });
 
-      await this.startSubscribe(subscribe);
+      await this.startSubscribe(subscribe, timeout);
       this.sendMessage(command);
     });
   }

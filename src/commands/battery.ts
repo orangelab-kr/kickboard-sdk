@@ -1,3 +1,12 @@
+/** Battery Status */
+export interface BatteryStatusCommand {
+  cmd: 'getmt5packet';
+}
+
+export function BatteryStatus(): BatteryStatusCommand {
+  return { cmd: 'getmt5packet' };
+}
+
 /** Battery Lock Command */
 export interface BatteryLockCommand {
   cmd: 'batlock';

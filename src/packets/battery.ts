@@ -2,9 +2,9 @@
 
 import { IsArray, IsInt, IsString } from 'class-validator';
 
-export class PacketMT5 {
+export class PacketBattery {
   @IsInt()
-  type!: 5;
+  type!: 'battery';
 
   @IsString()
   batterySN!: string;
@@ -35,9 +35,9 @@ export interface OriginalPacketMT5 {
   cell: number[] /** 셀 볼트수 */;
 }
 
-export default function (original: OriginalPacketMT5): PacketMT5 {
+export default function (original: OriginalPacketMT5): PacketBattery {
   return {
-    type: 5,
+    type: 'battery',
     batterySN: original.batsn,
     totalTrip: original.totrip,
     totalTime: original.totime,

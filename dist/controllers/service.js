@@ -3,10 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const packets_1 = __importDefault(require("../packets"));
-const events_1 = require("events");
-const client_1 = __importDefault(require("./client"));
 const amqplib_1 = __importDefault(require("amqplib"));
+const events_1 = require("events");
+const packets_1 = __importDefault(require("../packets"));
+const client_1 = __importDefault(require("./client"));
 class KickboardService extends events_1.EventEmitter {
     constructor(props) {
         super();
@@ -35,7 +35,7 @@ class KickboardService extends events_1.EventEmitter {
         const kickboardId = this.getKickboardId(res);
         const packet = this.getPacket(res);
         if (kickboardId && packet) {
-            const eventName = `mt${packet.type}`;
+            const eventName = packet.type;
             const done = this.getDoneFunction(res);
             const kickboard = this.getKickboard(kickboardId);
             this.emit(eventName, kickboard, packet, done);

@@ -1,8 +1,8 @@
 /// <reference types="node" />
-import { Packet } from '../packets';
-import { EventEmitter } from 'events';
-import KickboardClient from './client';
 import amqplib from 'amqplib';
+import { EventEmitter } from 'events';
+import { Packet } from '../packets';
+import KickboardClient from './client';
 export default class KickboardService extends EventEmitter {
     amqp?: amqplib.Connection;
     channel?: amqplib.Channel;

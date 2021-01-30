@@ -1,8 +1,7 @@
-import packets, { Packet } from '../packets';
-
-import { EventEmitter } from 'events';
-import KickboardClient from './client';
 import amqplib from 'amqplib';
+import { EventEmitter } from 'events';
+import packets, { Packet } from '../packets';
+import KickboardClient from './client';
 
 export default class KickboardService extends EventEmitter {
   public amqp?: amqplib.Connection;
@@ -47,7 +46,7 @@ export default class KickboardService extends EventEmitter {
     const kickboardId = this.getKickboardId(res);
     const packet = this.getPacket(res);
     if (kickboardId && packet) {
-      const eventName = `mt${packet.type}`;
+      const eventName = packet.type;
       const done = this.getDoneFunction(res);
       const kickboard = this.getKickboard(kickboardId);
       this.emit(eventName, kickboard, packet, done);

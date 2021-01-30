@@ -1,15 +1,15 @@
 /** 킥보드 연결시 사용되는 인터페이스입니다. */
-export declare class PacketMT1Version {
+export declare class PacketInfoVersion {
     hardware: number;
     software: number;
 }
-export declare class PacketMT1 {
-    type: 1;
+export declare class PacketInfo {
+    type: 'info';
     iccId: string;
     productId: number;
     macAddress: string;
-    iotVersion: PacketMT1Version;
-    ecuVersion: PacketMT1Version;
+    iotVersion: PacketInfoVersion;
+    ecuVersion: PacketInfoVersion;
 }
 export interface OriginalPacketMT1 {
     mt: 1 /** 메세지 타입 */;
@@ -21,4 +21,4 @@ export interface OriginalPacketMT1 {
     product: number /** 제품 ID */;
     mac: string /** 맥어드레스 */;
 }
-export default function (original: OriginalPacketMT1): PacketMT1;
+export default function (original: OriginalPacketMT1): PacketInfo;

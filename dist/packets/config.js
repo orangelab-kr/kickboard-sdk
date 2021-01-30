@@ -10,116 +10,114 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PacketMT4 = exports.PacketMT4ReportInterval = exports.PacketMT4Mqtt = exports.PacketMT4Gprs = void 0;
+exports.PacketConfig = exports.PacketConfigReportInterval = exports.PacketConfigMqtt = exports.PacketConfigGprs = void 0;
 const class_validator_1 = require("class-validator");
-class PacketMT4Gprs {
+class PacketConfigGprs {
 }
 __decorate([
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], PacketMT4Gprs.prototype, "apad", void 0);
+], PacketConfigGprs.prototype, "apad", void 0);
 __decorate([
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], PacketMT4Gprs.prototype, "username", void 0);
+], PacketConfigGprs.prototype, "username", void 0);
 __decorate([
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], PacketMT4Gprs.prototype, "password", void 0);
-exports.PacketMT4Gprs = PacketMT4Gprs;
-class PacketMT4Mqtt {
+], PacketConfigGprs.prototype, "password", void 0);
+exports.PacketConfigGprs = PacketConfigGprs;
+class PacketConfigMqtt {
 }
 __decorate([
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], PacketMT4Mqtt.prototype, "ipAddress", void 0);
+], PacketConfigMqtt.prototype, "ipAddress", void 0);
 __decorate([
     class_validator_1.IsPort(),
     __metadata("design:type", Number)
-], PacketMT4Mqtt.prototype, "port", void 0);
+], PacketConfigMqtt.prototype, "port", void 0);
 __decorate([
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], PacketMT4Mqtt.prototype, "clientId", void 0);
+], PacketConfigMqtt.prototype, "clientId", void 0);
 __decorate([
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], PacketMT4Mqtt.prototype, "username", void 0);
+], PacketConfigMqtt.prototype, "username", void 0);
 __decorate([
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], PacketMT4Mqtt.prototype, "password", void 0);
-exports.PacketMT4Mqtt = PacketMT4Mqtt;
-class PacketMT4ReportInterval {
+], PacketConfigMqtt.prototype, "password", void 0);
+exports.PacketConfigMqtt = PacketConfigMqtt;
+class PacketConfigReportInterval {
 }
 __decorate([
     class_validator_1.IsInt(),
     __metadata("design:type", Number)
-], PacketMT4ReportInterval.prototype, "ping", void 0);
+], PacketConfigReportInterval.prototype, "ping", void 0);
 __decorate([
     class_validator_1.IsInt(),
     __metadata("design:type", Number)
-], PacketMT4ReportInterval.prototype, "trip", void 0);
+], PacketConfigReportInterval.prototype, "trip", void 0);
 __decorate([
     class_validator_1.IsInt(),
     __metadata("design:type", Number)
-], PacketMT4ReportInterval.prototype, "static", void 0);
-exports.PacketMT4ReportInterval = PacketMT4ReportInterval;
-class PacketMT4 {
+], PacketConfigReportInterval.prototype, "static", void 0);
+exports.PacketConfigReportInterval = PacketConfigReportInterval;
+class PacketConfig {
 }
 __decorate([
     class_validator_1.IsInt(),
-    __metadata("design:type", Number)
-], PacketMT4.prototype, "type", void 0);
+    __metadata("design:type", String)
+], PacketConfig.prototype, "type", void 0);
 __decorate([
     class_validator_1.IsObject(),
-    __metadata("design:type", PacketMT4Gprs)
-], PacketMT4.prototype, "gprs", void 0);
+    __metadata("design:type", PacketConfigGprs)
+], PacketConfig.prototype, "gprs", void 0);
 __decorate([
     class_validator_1.IsObject(),
-    __metadata("design:type", PacketMT4Mqtt)
-], PacketMT4.prototype, "mqtt", void 0);
+    __metadata("design:type", PacketConfigMqtt)
+], PacketConfig.prototype, "mqtt", void 0);
 __decorate([
     class_validator_1.IsObject(),
-    __metadata("design:type", PacketMT4ReportInterval)
-], PacketMT4.prototype, "reportInterval", void 0);
+    __metadata("design:type", PacketConfigReportInterval)
+], PacketConfig.prototype, "reportInterval", void 0);
 __decorate([
     class_validator_1.IsArray(),
     __metadata("design:type", Array)
-], PacketMT4.prototype, "networks", void 0);
+], PacketConfig.prototype, "networks", void 0);
 __decorate([
     class_validator_1.IsInt(),
     __metadata("design:type", Number)
-], PacketMT4.prototype, "impact", void 0);
+], PacketConfig.prototype, "impact", void 0);
 __decorate([
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], PacketMT4.prototype, "bluetoothKey", void 0);
+], PacketConfig.prototype, "bluetoothKey", void 0);
 __decorate([
     class_validator_1.IsInt(),
     class_validator_1.Min(8),
     class_validator_1.Max(50),
     __metadata("design:type", Number)
-], PacketMT4.prototype, "speedLimit", void 0);
+], PacketConfig.prototype, "speedLimit", void 0);
 __decorate([
     class_validator_1.IsString(),
     class_validator_1.IsIn(['auto', 'gsm', 'wcdma', 'lte', 'td-scdma']),
     __metadata("design:type", String)
-], PacketMT4.prototype, "networkMode", void 0);
-exports.PacketMT4 = PacketMT4;
+], PacketConfig.prototype, "networkMode", void 0);
+exports.PacketConfig = PacketConfig;
 function getNetworkMode(netconfig) {
-    switch (netconfig) {
-        case '0':
-            return 'auto';
-        case '1':
-            return 'gsm';
-        case '2':
-            return 'wcdma';
-        case '3':
-            return 'lte';
-        case '4':
-            return 'td-scdma';
-    }
+    if (netconfig === '0')
+        return 'auto';
+    else if (netconfig === '1')
+        return 'gsm';
+    else if (netconfig === '2')
+        return 'wcdma';
+    else if (netconfig === '3')
+        return 'lte';
+    else if (netconfig === '4')
+        return 'td-scdma';
     return 'auto';
 }
 function getObjectFromArray(original) {
@@ -143,7 +141,7 @@ function getNetworks(convert) {
 function default_1(original) {
     const convert = getObjectFromArray(original);
     return {
-        type: 4,
+        type: 'config',
         gprs: {
             apad: convert.apad,
             username: convert.auser,

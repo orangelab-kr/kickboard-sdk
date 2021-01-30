@@ -3,10 +3,10 @@ import { EventEmitter } from 'events';
 import { AlarmMode } from '../commands/alarm';
 import { BuzzerMode } from '../commands/buzzer';
 import { LightMode } from '../commands/light';
-import { PacketMT1 } from '../packets/mt1';
-import { PacketMT2 } from '../packets/mt2';
-import { PacketMT4 } from '../packets/mt4';
-import { PacketMT5 } from '../packets/mt5';
+import { PacketBattery } from '../packets/battery';
+import { PacketConfig } from '../packets/config';
+import { PacketInfo } from '../packets/info';
+import { PacketStatus } from '../packets/status';
 import KickboardService from './service';
 export default class KickboardClient {
     private service;
@@ -15,9 +15,9 @@ export default class KickboardClient {
     readonly exchange = "mqtt";
     constructor(service: KickboardService, kickboardId: string);
     /** 킥보드를 시작합니다. */
-    start(): Promise<PacketMT2>;
+    start(): Promise<PacketStatus>;
     /** 킥보드를 종료합니다. */
-    stop(): Promise<PacketMT2>;
+    stop(): Promise<PacketStatus>;
     /** 킥보드를 잠금합니다. */
     lock(): void;
     /** 킥보드를 잠금 해제합니다. */
@@ -39,47 +39,47 @@ export default class KickboardClient {
     /** 불을 끕니다. */
     lightOff(): Promise<void>;
     /** 하드웨어, 소프트웨어 정보를 가져옵니다. */
-    getConfigMT1(): Promise<PacketMT1>;
+    getInfo(): Promise<PacketInfo>;
     /** GPS 정보, 속도와 같은 현재 상태를 불러옵니다. */
-    getConfigMT2(): Promise<PacketMT2>;
+    getStatus(): Promise<PacketStatus>;
     /** MQTT 와 GPRS 크레덴셜 및 기타 정보를 불러옵니다. */
-    getConfigMT4(): Promise<PacketMT4>;
+    getConfig(): Promise<PacketConfig>;
     /** 배터리 정보와 상태를 가져옵니다. */
-    getConfigMT5(): Promise<PacketMT5>;
+    getBattery(): Promise<PacketBattery>;
     /** 알람 모드를 켭니다. */
     alarmOn(mode: AlarmMode, seconds?: number): void;
     /** 알람 모드를 끕니다. */
     alarmOff(): void;
     /** GPRS APAD를 수정합니다. */
-    setGprsApad(apad: string): Promise<PacketMT4>;
+    setGprsApad(apad: string): Promise<PacketConfig>;
     /** GPRS USERNAME를 수정합니다. */
-    setGrpsUsername(username: string): Promise<PacketMT4>;
+    setGrpsUsername(username: string): Promise<PacketConfig>;
     /** GPRS PASSWORD를 수정합니다. */
-    setGrpsPassword(password: string): Promise<PacketMT4>;
+    setGrpsPassword(password: string): Promise<PacketConfig>;
     /** MQTT Address 수정합니다. */
-    setMQTTAddress(address: string): Promise<PacketMT4>;
+    setMQTTAddress(address: string): Promise<PacketConfig>;
     /** MQTT Port 수정합니다. */
-    setMQTTPort(port: number): Promise<PacketMT4>;
+    setMQTTPort(port: number): Promise<PacketConfig>;
     /** Report Interval Ping을 수정합니다. */
-    setReportIntervalPing(seconds: number): Promise<PacketMT4>;
+    setReportIntervalPing(seconds: number): Promise<PacketConfig>;
     /** Report Interval Trip을 수정합니다. */
-    setReportIntervalTrip(seconds: number): Promise<PacketMT4>;
+    setReportIntervalTrip(seconds: number): Promise<PacketConfig>;
     /** Report Interval Static을 수정합니다. */
-    setReportIntervalStatic(seconds: number): Promise<PacketMT4>;
+    setReportIntervalStatic(seconds: number): Promise<PacketConfig>;
     /** MQTT Client ID를 수정합니다. */
-    setMQTTClientId(clientId: string): Promise<PacketMT4>;
+    setMQTTClientId(clientId: string): Promise<PacketConfig>;
     /** MQTT Username을 수정합니다. */
-    setMQTTUsername(username: string): Promise<PacketMT4>;
+    setMQTTUsername(username: string): Promise<PacketConfig>;
     /** MQTT Password을 수정합니다. */
-    setMQTTPassword(password: string): Promise<PacketMT4>;
+    setMQTTPassword(password: string): Promise<PacketConfig>;
     /** 속도를 수정합니다. */
-    setSpeedLimit(speed: number): Promise<PacketMT4>;
+    setSpeedLimit(speed: number): Promise<PacketConfig>;
     /** 충격 기준치를 수정합니다. */
-    setImpact(impact: number): Promise<PacketMT4>;
+    setImpact(impact: number): Promise<PacketConfig>;
     /** 블루투스 인증 키를 변경합니다. */
-    setBluetoothKey(key: string): Promise<PacketMT4>;
+    setBluetoothKey(key: string): Promise<PacketConfig>;
     /** 네트워크 모드를 변경합니다. */
-    setNetworkMode(mode: 0 | 1 | 2 | 3 | 4): Promise<PacketMT4>;
+    setNetworkMode(mode: 0 | 1 | 2 | 3 | 4): Promise<PacketConfig>;
     /** 구독을 생성합니다. 바로 듣기가 활성화되지 않습니다. */
     createSubscribe(): Promise<EventEmitter & {
         id: string;
@@ -87,7 +87,7 @@ export default class KickboardClient {
     /** 생성한 구독에 듣기를 활성화합니다. */
     startSubscribe(subscribe: EventEmitter & {
         id: string;
-    }): Promise<void>;
+    }, timeout?: number): Promise<void>;
     /** 구독을 취소합니다. 듣기가 비활성화됩니다. */
     stopSubscribe(subscribe: EventEmitter & {
         id: string;

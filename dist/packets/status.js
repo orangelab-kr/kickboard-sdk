@@ -13,221 +13,214 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PacketMT2 = exports.PacketMT2Power = exports.PacketMT2PowerDetails = exports.PacketMT2Vehicle = exports.PacketMT2ReportReason = exports.PacketMT2Status = exports.PacketMT2Trip = exports.PacketMT2Network = exports.PacketMT2Gps = void 0;
+exports.PacketStatus = exports.PacketStatusPower = exports.PacketStatusPowerDetails = exports.PacketStatusVehicle = exports.PacketStatusReportReason = exports.PacketStatusTrip = exports.PacketStatusNetwork = exports.PacketStatusGps = void 0;
 const class_validator_1 = require("class-validator");
 const moment_1 = __importDefault(require("moment"));
-class PacketMT2Gps {
+class PacketStatusGps {
 }
 __decorate([
     class_validator_1.IsNotEmpty(),
     __metadata("design:type", Object)
-], PacketMT2Gps.prototype, "timestamp", void 0);
+], PacketStatusGps.prototype, "timestamp", void 0);
 __decorate([
     class_validator_1.IsInt(),
     class_validator_1.Min(-90),
     class_validator_1.Max(90),
     __metadata("design:type", Number)
-], PacketMT2Gps.prototype, "latitude", void 0);
+], PacketStatusGps.prototype, "latitude", void 0);
 __decorate([
     class_validator_1.IsInt(),
     class_validator_1.Min(-180),
     class_validator_1.Max(180),
     __metadata("design:type", Number)
-], PacketMT2Gps.prototype, "longitude", void 0);
+], PacketStatusGps.prototype, "longitude", void 0);
 __decorate([
     class_validator_1.IsInt(),
     class_validator_1.Min(0),
     class_validator_1.Max(255),
     __metadata("design:type", Number)
-], PacketMT2Gps.prototype, "satelliteUsedCount", void 0);
+], PacketStatusGps.prototype, "satelliteUsedCount", void 0);
 __decorate([
     class_validator_1.IsBoolean(),
     __metadata("design:type", Boolean)
-], PacketMT2Gps.prototype, "isValid", void 0);
+], PacketStatusGps.prototype, "isValid", void 0);
 __decorate([
     class_validator_1.IsInt(),
     class_validator_1.Min(0),
     class_validator_1.Max(255),
     __metadata("design:type", Number)
-], PacketMT2Gps.prototype, "speed", void 0);
-exports.PacketMT2Gps = PacketMT2Gps;
-class PacketMT2Network {
+], PacketStatusGps.prototype, "speed", void 0);
+exports.PacketStatusGps = PacketStatusGps;
+class PacketStatusNetwork {
 }
 __decorate([
     class_validator_1.IsBoolean(),
     __metadata("design:type", Boolean)
-], PacketMT2Network.prototype, "isRoaming", void 0);
+], PacketStatusNetwork.prototype, "isRoaming", void 0);
 __decorate([
     class_validator_1.IsInt(),
     class_validator_1.Min(0),
     class_validator_1.Max(99),
     __metadata("design:type", Number)
-], PacketMT2Network.prototype, "signalStrength", void 0);
+], PacketStatusNetwork.prototype, "signalStrength", void 0);
 __decorate([
     class_validator_1.IsInt(),
     __metadata("design:type", Number)
-], PacketMT2Network.prototype, "mcc", void 0);
+], PacketStatusNetwork.prototype, "mcc", void 0);
 __decorate([
     class_validator_1.IsInt(),
     __metadata("design:type", Number)
-], PacketMT2Network.prototype, "mnc", void 0);
-exports.PacketMT2Network = PacketMT2Network;
-class PacketMT2Trip {
+], PacketStatusNetwork.prototype, "mnc", void 0);
+exports.PacketStatusNetwork = PacketStatusNetwork;
+class PacketStatusTrip {
 }
 __decorate([
     class_validator_1.IsInt(),
     __metadata("design:type", Number)
-], PacketMT2Trip.prototype, "time", void 0);
+], PacketStatusTrip.prototype, "time", void 0);
 __decorate([
     class_validator_1.IsInt(),
     __metadata("design:type", Number)
-], PacketMT2Trip.prototype, "distance", void 0);
-exports.PacketMT2Trip = PacketMT2Trip;
-class PacketMT2Status {
+], PacketStatusTrip.prototype, "distance", void 0);
+exports.PacketStatusTrip = PacketStatusTrip;
+var PacketStatusReportReason;
+(function (PacketStatusReportReason) {
+    PacketStatusReportReason[PacketStatusReportReason["UNAUTHORIZED_MOVEMENT"] = 0] = "UNAUTHORIZED_MOVEMENT";
+    PacketStatusReportReason[PacketStatusReportReason["PERIODIC_PAYLOAD_SENT"] = 1] = "PERIODIC_PAYLOAD_SENT";
+    PacketStatusReportReason[PacketStatusReportReason["TRIP_TIME_OUT"] = 2] = "TRIP_TIME_OUT";
+    PacketStatusReportReason[PacketStatusReportReason["BUZZER_ON_KICKSTAND_MOVED"] = 3] = "BUZZER_ON_KICKSTAND_MOVED";
+    PacketStatusReportReason[PacketStatusReportReason["BATTERY_FULLY_CHARGED"] = 4] = "BATTERY_FULLY_CHARGED";
+    PacketStatusReportReason[PacketStatusReportReason["BATTERY_EVENT"] = 5] = "BATTERY_EVENT";
+    PacketStatusReportReason[PacketStatusReportReason["CONTROLLER_EVENT"] = 6] = "CONTROLLER_EVENT";
+    PacketStatusReportReason[PacketStatusReportReason["TRIP_START"] = 7] = "TRIP_START";
+    PacketStatusReportReason[PacketStatusReportReason["TRIP_STOP"] = 8] = "TRIP_STOP";
+})(PacketStatusReportReason = exports.PacketStatusReportReason || (exports.PacketStatusReportReason = {}));
+class PacketStatusVehicle {
 }
 __decorate([
     class_validator_1.IsBoolean(),
     __metadata("design:type", Boolean)
-], PacketMT2Status.prototype, "isLightsOn", void 0);
-__decorate([
-    class_validator_1.IsBoolean(),
-    __metadata("design:type", Boolean)
-], PacketMT2Status.prototype, "isBuzzerOn", void 0);
-__decorate([
-    class_validator_1.IsBoolean(),
-    __metadata("design:type", Boolean)
-], PacketMT2Status.prototype, "isControllerChecked", void 0);
-__decorate([
-    class_validator_1.IsBoolean(),
-    __metadata("design:type", Boolean)
-], PacketMT2Status.prototype, "isIotChecked", void 0);
-__decorate([
-    class_validator_1.IsBoolean(),
-    __metadata("design:type", Boolean)
-], PacketMT2Status.prototype, "isBatteryChecked", void 0);
-__decorate([
-    class_validator_1.IsBoolean(),
-    __metadata("design:type", Boolean)
-], PacketMT2Status.prototype, "isFailDown", void 0);
-__decorate([
-    class_validator_1.IsBoolean(),
-    __metadata("design:type", Boolean)
-], PacketMT2Status.prototype, "isEBSBrakeOn", void 0);
-__decorate([
-    class_validator_1.IsBoolean(),
-    __metadata("design:type", Boolean)
-], PacketMT2Status.prototype, "isKickstandOn", void 0);
-__decorate([
-    class_validator_1.IsBoolean(),
-    __metadata("design:type", Boolean)
-], PacketMT2Status.prototype, "isLineLocked", void 0);
-__decorate([
-    class_validator_1.IsBoolean(),
-    __metadata("design:type", Boolean)
-], PacketMT2Status.prototype, "isBatteryLocked", void 0);
-__decorate([
-    class_validator_1.IsInt(),
-    class_validator_1.Min(0),
-    class_validator_1.Max(255),
-    __metadata("design:type", Number)
-], PacketMT2Status.prototype, "speed", void 0);
-exports.PacketMT2Status = PacketMT2Status;
-var PacketMT2ReportReason;
-(function (PacketMT2ReportReason) {
-    PacketMT2ReportReason[PacketMT2ReportReason["UNAUTHORIZED_MOVEMENT"] = 0] = "UNAUTHORIZED_MOVEMENT";
-    PacketMT2ReportReason[PacketMT2ReportReason["PERIODIC_PAYLOAD_SENT"] = 1] = "PERIODIC_PAYLOAD_SENT";
-    PacketMT2ReportReason[PacketMT2ReportReason["TRIP_TIME_OUT"] = 2] = "TRIP_TIME_OUT";
-    PacketMT2ReportReason[PacketMT2ReportReason["BUZZER_ON_KICKSTAND_MOVED"] = 3] = "BUZZER_ON_KICKSTAND_MOVED";
-    PacketMT2ReportReason[PacketMT2ReportReason["BATTERY_FULLY_CHARGED"] = 4] = "BATTERY_FULLY_CHARGED";
-    PacketMT2ReportReason[PacketMT2ReportReason["BATTERY_EVENT"] = 5] = "BATTERY_EVENT";
-    PacketMT2ReportReason[PacketMT2ReportReason["CONTROLLER_EVENT"] = 6] = "CONTROLLER_EVENT";
-    PacketMT2ReportReason[PacketMT2ReportReason["TRIP_START"] = 7] = "TRIP_START";
-    PacketMT2ReportReason[PacketMT2ReportReason["TRIP_STOP"] = 8] = "TRIP_STOP";
-})(PacketMT2ReportReason = exports.PacketMT2ReportReason || (exports.PacketMT2ReportReason = {}));
-class PacketMT2Vehicle {
-}
-__decorate([
-    class_validator_1.IsBoolean(),
-    __metadata("design:type", Boolean)
-], PacketMT2Vehicle.prototype, "isEnabled", void 0);
+], PacketStatusVehicle.prototype, "isEnabled", void 0);
 __decorate([
     class_validator_1.IsArray(),
     __metadata("design:type", Array)
-], PacketMT2Vehicle.prototype, "reportReason", void 0);
-exports.PacketMT2Vehicle = PacketMT2Vehicle;
-class PacketMT2PowerDetails {
+], PacketStatusVehicle.prototype, "reportReason", void 0);
+exports.PacketStatusVehicle = PacketStatusVehicle;
+class PacketStatusPowerDetails {
 }
 __decorate([
     class_validator_1.IsInt(),
     class_validator_1.Min(0),
     class_validator_1.Max(100),
     __metadata("design:type", Number)
-], PacketMT2PowerDetails.prototype, "battery", void 0);
+], PacketStatusPowerDetails.prototype, "battery", void 0);
 __decorate([
     class_validator_1.IsBoolean(),
     __metadata("design:type", Boolean)
-], PacketMT2PowerDetails.prototype, "isCharging", void 0);
-exports.PacketMT2PowerDetails = PacketMT2PowerDetails;
-class PacketMT2Power {
+], PacketStatusPowerDetails.prototype, "isCharging", void 0);
+exports.PacketStatusPowerDetails = PacketStatusPowerDetails;
+class PacketStatusPower {
 }
 __decorate([
     class_validator_1.IsObject(),
-    __metadata("design:type", PacketMT2PowerDetails)
-], PacketMT2Power.prototype, "scooter", void 0);
+    __metadata("design:type", PacketStatusPowerDetails)
+], PacketStatusPower.prototype, "scooter", void 0);
 __decorate([
     class_validator_1.IsObject(),
-    __metadata("design:type", PacketMT2PowerDetails)
-], PacketMT2Power.prototype, "iot", void 0);
+    __metadata("design:type", PacketStatusPowerDetails)
+], PacketStatusPower.prototype, "iot", void 0);
 __decorate([
     class_validator_1.IsInt(),
     __metadata("design:type", Number)
-], PacketMT2Power.prototype, "batteryCycle", void 0);
+], PacketStatusPower.prototype, "batteryCycle", void 0);
 __decorate([
     class_validator_1.IsInt(),
     __metadata("design:type", Number)
-], PacketMT2Power.prototype, "speedLimit", void 0);
-exports.PacketMT2Power = PacketMT2Power;
-class PacketMT2 {
+], PacketStatusPower.prototype, "speedLimit", void 0);
+exports.PacketStatusPower = PacketStatusPower;
+class PacketStatus {
 }
 __decorate([
     class_validator_1.IsInt(),
-    __metadata("design:type", Number)
-], PacketMT2.prototype, "type", void 0);
+    __metadata("design:type", String)
+], PacketStatus.prototype, "type", void 0);
 __decorate([
     class_validator_1.IsNotEmpty(),
     __metadata("design:type", Object)
-], PacketMT2.prototype, "timestamp", void 0);
+], PacketStatus.prototype, "timestamp", void 0);
 __decorate([
     class_validator_1.IsInt(),
     class_validator_1.Min(0),
     class_validator_1.Max(255),
     __metadata("design:type", Number)
-], PacketMT2.prototype, "messageNumber", void 0);
+], PacketStatus.prototype, "messageNumber", void 0);
 __decorate([
     class_validator_1.IsObject(),
-    __metadata("design:type", PacketMT2Gps)
-], PacketMT2.prototype, "gps", void 0);
+    __metadata("design:type", PacketStatusGps)
+], PacketStatus.prototype, "gps", void 0);
 __decorate([
     class_validator_1.IsObject(),
-    __metadata("design:type", PacketMT2Network)
-], PacketMT2.prototype, "network", void 0);
+    __metadata("design:type", PacketStatusNetwork)
+], PacketStatus.prototype, "network", void 0);
 __decorate([
     class_validator_1.IsObject(),
-    __metadata("design:type", PacketMT2Trip)
-], PacketMT2.prototype, "trip", void 0);
+    __metadata("design:type", PacketStatusTrip)
+], PacketStatus.prototype, "trip", void 0);
 __decorate([
     class_validator_1.IsObject(),
-    __metadata("design:type", PacketMT2Vehicle)
-], PacketMT2.prototype, "vehicle", void 0);
+    __metadata("design:type", PacketStatusVehicle)
+], PacketStatus.prototype, "vehicle", void 0);
 __decorate([
     class_validator_1.IsObject(),
-    __metadata("design:type", PacketMT2Power)
-], PacketMT2.prototype, "power", void 0);
+    __metadata("design:type", PacketStatusPower)
+], PacketStatus.prototype, "power", void 0);
 __decorate([
-    class_validator_1.IsObject(),
-    __metadata("design:type", PacketMT2Status)
-], PacketMT2.prototype, "status", void 0);
-exports.PacketMT2 = PacketMT2;
+    class_validator_1.IsBoolean(),
+    __metadata("design:type", Boolean)
+], PacketStatus.prototype, "isLightsOn", void 0);
+__decorate([
+    class_validator_1.IsBoolean(),
+    __metadata("design:type", Boolean)
+], PacketStatus.prototype, "isBuzzerOn", void 0);
+__decorate([
+    class_validator_1.IsBoolean(),
+    __metadata("design:type", Boolean)
+], PacketStatus.prototype, "isControllerChecked", void 0);
+__decorate([
+    class_validator_1.IsBoolean(),
+    __metadata("design:type", Boolean)
+], PacketStatus.prototype, "isIotChecked", void 0);
+__decorate([
+    class_validator_1.IsBoolean(),
+    __metadata("design:type", Boolean)
+], PacketStatus.prototype, "isBatteryChecked", void 0);
+__decorate([
+    class_validator_1.IsBoolean(),
+    __metadata("design:type", Boolean)
+], PacketStatus.prototype, "isFailDown", void 0);
+__decorate([
+    class_validator_1.IsBoolean(),
+    __metadata("design:type", Boolean)
+], PacketStatus.prototype, "isEBSBrakeOn", void 0);
+__decorate([
+    class_validator_1.IsBoolean(),
+    __metadata("design:type", Boolean)
+], PacketStatus.prototype, "isKickstandOn", void 0);
+__decorate([
+    class_validator_1.IsBoolean(),
+    __metadata("design:type", Boolean)
+], PacketStatus.prototype, "isLineLocked", void 0);
+__decorate([
+    class_validator_1.IsBoolean(),
+    __metadata("design:type", Boolean)
+], PacketStatus.prototype, "isBatteryLocked", void 0);
+__decorate([
+    class_validator_1.IsInt(),
+    class_validator_1.Min(0),
+    class_validator_1.Max(255),
+    __metadata("design:type", Number)
+], PacketStatus.prototype, "speed", void 0);
+exports.PacketStatus = PacketStatus;
 function getChargingStatus(pw) {
     const status = [...pw.toString(2)].reverse().join('').padEnd(2, '0');
     return {
@@ -239,23 +232,23 @@ function getReportReason(rf) {
     const reasons = [];
     const status = [...rf.toString(2)].reverse().join('').padEnd(9, '0');
     if (status[0] === '1')
-        reasons.push(PacketMT2ReportReason.UNAUTHORIZED_MOVEMENT);
+        reasons.push(PacketStatusReportReason.UNAUTHORIZED_MOVEMENT);
     if (status[1] === '1')
-        reasons.push(PacketMT2ReportReason.PERIODIC_PAYLOAD_SENT);
+        reasons.push(PacketStatusReportReason.PERIODIC_PAYLOAD_SENT);
     if (status[2] === '1')
-        reasons.push(PacketMT2ReportReason.TRIP_TIME_OUT);
+        reasons.push(PacketStatusReportReason.TRIP_TIME_OUT);
     if (status[3] === '1')
-        reasons.push(PacketMT2ReportReason.BUZZER_ON_KICKSTAND_MOVED);
+        reasons.push(PacketStatusReportReason.BUZZER_ON_KICKSTAND_MOVED);
     if (status[4] === '1')
-        reasons.push(PacketMT2ReportReason.BATTERY_FULLY_CHARGED);
+        reasons.push(PacketStatusReportReason.BATTERY_FULLY_CHARGED);
     if (status[5] === '1')
-        reasons.push(PacketMT2ReportReason.BATTERY_EVENT);
+        reasons.push(PacketStatusReportReason.BATTERY_EVENT);
     if (status[6] === '1')
-        reasons.push(PacketMT2ReportReason.CONTROLLER_EVENT);
+        reasons.push(PacketStatusReportReason.CONTROLLER_EVENT);
     if (status[7] === '1')
-        reasons.push(PacketMT2ReportReason.TRIP_START);
+        reasons.push(PacketStatusReportReason.TRIP_START);
     if (status[8] === '1')
-        reasons.push(PacketMT2ReportReason.TRIP_STOP);
+        reasons.push(PacketStatusReportReason.TRIP_STOP);
     return reasons;
 }
 function getStatus(io, ws) {
@@ -277,10 +270,9 @@ function getStatus(io, ws) {
 function default_1(original) {
     const charging = getChargingStatus(original.pw);
     return {
-        type: 2,
+        type: 'status',
         timestamp: moment_1.default(original.rtc),
         messageNumber: original.mn,
-        status: getStatus(original.io, original.ws),
         gps: {
             timestamp: moment_1.default(original.gtc),
             latitude: original.la,
@@ -315,6 +307,7 @@ function default_1(original) {
                 isCharging: charging.iot,
             },
         },
+        ...getStatus(original.io, original.ws),
     };
 }
 exports.default = default_1;

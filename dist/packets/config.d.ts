@@ -1,26 +1,26 @@
 /** 킥보드 설정 정보 요청시 가져오는 인터페이스입니다.. */
-export declare class PacketMT4Gprs {
+export declare class PacketConfigGprs {
     apad: string;
     username: string;
     password: string;
 }
-export declare class PacketMT4Mqtt {
+export declare class PacketConfigMqtt {
     ipAddress: string;
     port: number;
     clientId: string;
     username: string;
     password: string;
 }
-export declare class PacketMT4ReportInterval {
+export declare class PacketConfigReportInterval {
     ping: number;
     trip: number;
     static: number;
 }
-export declare class PacketMT4 {
-    type: 4;
-    gprs: PacketMT4Gprs;
-    mqtt: PacketMT4Mqtt;
-    reportInterval: PacketMT4ReportInterval;
+export declare class PacketConfig {
+    type: 'config';
+    gprs: PacketConfigGprs;
+    mqtt: PacketConfigMqtt;
+    reportInterval: PacketConfigReportInterval;
     networks: string[];
     impact: number;
     bluetoothKey: string;
@@ -55,4 +55,4 @@ export interface OriginalPacketMT4Convert {
     blekey: string /** 블루투스 KEY */;
     netconfig: string /** 네트워크 설정 */;
 }
-export default function (original: OriginalPacketMT4): PacketMT4;
+export default function (original: OriginalPacketMT4): PacketConfig;

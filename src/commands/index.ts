@@ -1,33 +1,36 @@
 import { AlarmOffCommand, AlarmOnCommand } from './alarm';
-import { BatteryLockCommand, BatteryUnlockCommand } from './battery';
+import {
+  BatteryLockCommand,
+  BatteryStatusCommand,
+  BatteryUnlockCommand,
+} from './battery';
 import { BluetoothOffCommand, BluetoothOnCommand } from './bluetooth';
 import { BuzzerOffCommand, BuzzerOnCommand } from './buzzer';
 import {
-  ConfigMT1Command,
-  ConfigMT2Command,
-  ConfigMT4Command,
-  ConfigMT5Command,
+  ConfigGetCommand,
   ConfigRestoreCommand,
   ConfigSetCommand,
 } from './config';
 import {
+  KickboardInfoCommand,
   KickboardLockCommand,
   KickboardRebootCommand,
   KickboardStartCommand,
+  KickboardStatusCommand,
   KickboardStopCommand,
   KickboardUnlockCommand,
 } from './kickboard';
 import { LightOffCommand, LightOnCommand } from './light';
 
 export type AlarmCommand = AlarmOnCommand | AlarmOffCommand;
-export type BatteryCommand = BatteryLockCommand | BatteryUnlockCommand;
+export type BatteryCommand =
+  | BatteryStatusCommand
+  | BatteryLockCommand
+  | BatteryUnlockCommand;
 export type BluetoothCommand = BluetoothOnCommand | BluetoothOffCommand;
 export type BuzzerCommand = BuzzerOnCommand | BuzzerOffCommand;
 export type ConfigCommand =
-  | ConfigMT1Command
-  | ConfigMT2Command
-  | ConfigMT4Command
-  | ConfigMT5Command
+  | ConfigGetCommand
   | ConfigRestoreCommand
   | ConfigSetCommand;
 export type KickboardCommand =
@@ -35,7 +38,9 @@ export type KickboardCommand =
   | KickboardStopCommand
   | KickboardLockCommand
   | KickboardUnlockCommand
-  | KickboardRebootCommand;
+  | KickboardRebootCommand
+  | KickboardInfoCommand
+  | KickboardStatusCommand;
 export type LightCommand = LightOnCommand | LightOffCommand;
 
 type Command =

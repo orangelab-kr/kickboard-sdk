@@ -1,6 +1,6 @@
 /** 킥보드 설정 정보 요청시 가져오는 인터페이스입니다.. */
-export declare class PacketMT5 {
-    type: 5;
+export declare class PacketBattery {
+    type: 'battery';
     batterySN: string;
     totalTrip: number;
     totalTime: number;
@@ -17,4 +17,4 @@ export interface OriginalPacketMT5 {
     ctype: string /** 셀 타입 */;
     cell: number[] /** 셀 볼트수 */;
 }
-export default function (original: OriginalPacketMT5): PacketMT5;
+export default function (original: OriginalPacketMT5): PacketBattery;

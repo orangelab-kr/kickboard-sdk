@@ -11,7 +11,7 @@ import {
 } from 'class-validator';
 import moment, { Moment } from 'moment';
 
-export class PacketMT2Gps {
+export class PacketStatusGps {
   @IsNotEmpty()
   timestamp!: Moment;
 
@@ -39,7 +39,7 @@ export class PacketMT2Gps {
   speed!: number;
 }
 
-export class PacketMT2Network {
+export class PacketStatusNetwork {
   @IsBoolean()
   isRoaming!: boolean;
 
@@ -55,7 +55,7 @@ export class PacketMT2Network {
   mnc!: number;
 }
 
-export class PacketMT2Trip {
+export class PacketStatusTrip {
   @IsInt()
   time!: number;
 
@@ -63,7 +63,77 @@ export class PacketMT2Trip {
   distance!: number;
 }
 
-export class PacketMT2Status {
+export enum PacketStatusReportReason {
+  UNAUTHORIZED_MOVEMENT,
+  PERIODIC_PAYLOAD_SENT,
+  TRIP_TIME_OUT,
+  BUZZER_ON_KICKSTAND_MOVED,
+  BATTERY_FULLY_CHARGED,
+  BATTERY_EVENT,
+  CONTROLLER_EVENT,
+  TRIP_START,
+  TRIP_STOP,
+}
+
+export class PacketStatusVehicle {
+  @IsBoolean()
+  isEnabled!: boolean;
+
+  @IsArray()
+  reportReason!: PacketStatusReportReason[];
+}
+
+export class PacketStatusPowerDetails {
+  @IsInt()
+  @Min(0)
+  @Max(100)
+  battery!: number;
+
+  @IsBoolean()
+  isCharging!: boolean;
+}
+
+export class PacketStatusPower {
+  @IsObject()
+  scooter!: PacketStatusPowerDetails;
+
+  @IsObject()
+  iot!: PacketStatusPowerDetails;
+
+  @IsInt()
+  batteryCycle!: number;
+
+  @IsInt()
+  speedLimit!: number;
+}
+
+export class PacketStatus {
+  @IsInt()
+  type!: 'status';
+
+  @IsNotEmpty()
+  timestamp!: Moment;
+
+  @IsInt()
+  @Min(0)
+  @Max(255)
+  messageNumber!: number;
+
+  @IsObject()
+  gps!: PacketStatusGps;
+
+  @IsObject()
+  network!: PacketStatusNetwork;
+
+  @IsObject()
+  trip!: PacketStatusTrip;
+
+  @IsObject()
+  vehicle!: PacketStatusVehicle;
+
+  @IsObject()
+  power!: PacketStatusPower;
+
   @IsBoolean()
   isLightsOn!: boolean;
 
@@ -98,81 +168,6 @@ export class PacketMT2Status {
   @Min(0)
   @Max(255)
   speed!: number;
-}
-
-export enum PacketMT2ReportReason {
-  UNAUTHORIZED_MOVEMENT,
-  PERIODIC_PAYLOAD_SENT,
-  TRIP_TIME_OUT,
-  BUZZER_ON_KICKSTAND_MOVED,
-  BATTERY_FULLY_CHARGED,
-  BATTERY_EVENT,
-  CONTROLLER_EVENT,
-  TRIP_START,
-  TRIP_STOP,
-}
-
-export class PacketMT2Vehicle {
-  @IsBoolean()
-  isEnabled!: boolean;
-
-  @IsArray()
-  reportReason!: PacketMT2ReportReason[];
-}
-
-export class PacketMT2PowerDetails {
-  @IsInt()
-  @Min(0)
-  @Max(100)
-  battery!: number;
-
-  @IsBoolean()
-  isCharging!: boolean;
-}
-
-export class PacketMT2Power {
-  @IsObject()
-  scooter!: PacketMT2PowerDetails;
-
-  @IsObject()
-  iot!: PacketMT2PowerDetails;
-
-  @IsInt()
-  batteryCycle!: number;
-
-  @IsInt()
-  speedLimit!: number;
-}
-
-export class PacketMT2 {
-  @IsInt()
-  type!: 2;
-
-  @IsNotEmpty()
-  timestamp!: Moment;
-
-  @IsInt()
-  @Min(0)
-  @Max(255)
-  messageNumber!: number;
-
-  @IsObject()
-  gps!: PacketMT2Gps;
-
-  @IsObject()
-  network!: PacketMT2Network;
-
-  @IsObject()
-  trip!: PacketMT2Trip;
-
-  @IsObject()
-  vehicle!: PacketMT2Vehicle;
-
-  @IsObject()
-  power!: PacketMT2Power;
-
-  @IsObject()
-  status!: PacketMT2Status;
 }
 
 export interface OriginalPacketMT2 {
@@ -212,28 +207,44 @@ function getChargingStatus(pw: number): { scooter: boolean; iot: boolean } {
   };
 }
 
-function getReportReason(rf: number): PacketMT2ReportReason[] {
-  const reasons: PacketMT2ReportReason[] = [];
+function getReportReason(rf: number): PacketStatusReportReason[] {
+  const reasons: PacketStatusReportReason[] = [];
   const status = [...rf.toString(2)].reverse().join('').padEnd(9, '0');
 
   if (status[0] === '1')
-    reasons.push(PacketMT2ReportReason.UNAUTHORIZED_MOVEMENT);
+    reasons.push(PacketStatusReportReason.UNAUTHORIZED_MOVEMENT);
   if (status[1] === '1')
-    reasons.push(PacketMT2ReportReason.PERIODIC_PAYLOAD_SENT);
-  if (status[2] === '1') reasons.push(PacketMT2ReportReason.TRIP_TIME_OUT);
+    reasons.push(PacketStatusReportReason.PERIODIC_PAYLOAD_SENT);
+  if (status[2] === '1') reasons.push(PacketStatusReportReason.TRIP_TIME_OUT);
   if (status[3] === '1')
-    reasons.push(PacketMT2ReportReason.BUZZER_ON_KICKSTAND_MOVED);
+    reasons.push(PacketStatusReportReason.BUZZER_ON_KICKSTAND_MOVED);
   if (status[4] === '1')
-    reasons.push(PacketMT2ReportReason.BATTERY_FULLY_CHARGED);
-  if (status[5] === '1') reasons.push(PacketMT2ReportReason.BATTERY_EVENT);
-  if (status[6] === '1') reasons.push(PacketMT2ReportReason.CONTROLLER_EVENT);
-  if (status[7] === '1') reasons.push(PacketMT2ReportReason.TRIP_START);
-  if (status[8] === '1') reasons.push(PacketMT2ReportReason.TRIP_STOP);
+    reasons.push(PacketStatusReportReason.BATTERY_FULLY_CHARGED);
+  if (status[5] === '1') reasons.push(PacketStatusReportReason.BATTERY_EVENT);
+  if (status[6] === '1')
+    reasons.push(PacketStatusReportReason.CONTROLLER_EVENT);
+  if (status[7] === '1') reasons.push(PacketStatusReportReason.TRIP_START);
+  if (status[8] === '1') reasons.push(PacketStatusReportReason.TRIP_STOP);
 
   return reasons;
 }
 
-function getStatus(io: number, ws: number): PacketMT2Status {
+function getStatus(
+  io: number,
+  ws: number
+): {
+  isLightsOn: boolean;
+  isBuzzerOn: boolean;
+  isControllerChecked: boolean;
+  isIotChecked: boolean;
+  isBatteryChecked: boolean;
+  isFailDown: boolean;
+  isEBSBrakeOn: boolean;
+  isKickstandOn: boolean;
+  isLineLocked: boolean;
+  isBatteryLocked: boolean;
+  speed: number;
+} {
   const status = [...io.toString(2)].reverse().join('').padEnd(10, '0');
 
   return {
@@ -251,13 +262,12 @@ function getStatus(io: number, ws: number): PacketMT2Status {
   };
 }
 
-export default function (original: OriginalPacketMT2): PacketMT2 {
+export default function (original: OriginalPacketMT2): PacketStatus {
   const charging = getChargingStatus(original.pw);
   return {
-    type: 2,
+    type: 'status',
     timestamp: moment(original.rtc),
     messageNumber: original.mn,
-    status: getStatus(original.io, original.ws),
     gps: {
       timestamp: moment(original.gtc),
       latitude: original.la,
@@ -292,5 +302,6 @@ export default function (original: OriginalPacketMT2): PacketMT2 {
         isCharging: charging.iot,
       },
     },
+    ...getStatus(original.io, original.ws),
   };
 }

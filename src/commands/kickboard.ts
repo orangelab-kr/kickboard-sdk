@@ -42,3 +42,21 @@ export interface KickboardRebootCommand {
 export function KickboardReboot(): KickboardRebootCommand {
   return { cmd: 'restart' };
 }
+
+/** Config MT1 Command */
+export interface KickboardInfoCommand {
+  cmd: 'getmt1packet';
+}
+
+export function KickboardInfo(): KickboardInfoCommand {
+  return { cmd: 'getmt1packet' };
+}
+
+/** Config MT2 Command */
+export interface KickboardStatusCommand {
+  cmd: 'getmt2packet';
+}
+
+export function KickboardStatus(): KickboardStatusCommand {
+  return { cmd: 'getmt2packet' };
+}

@@ -11,7 +11,7 @@ import {
   Min,
 } from 'class-validator';
 
-export class PacketMT4Gprs {
+export class PacketConfigGprs {
   @IsString()
   apad!: string;
 
@@ -22,7 +22,7 @@ export class PacketMT4Gprs {
   password!: string;
 }
 
-export class PacketMT4Mqtt {
+export class PacketConfigMqtt {
   @IsString()
   ipAddress!: string;
 
@@ -39,7 +39,7 @@ export class PacketMT4Mqtt {
   password!: string;
 }
 
-export class PacketMT4ReportInterval {
+export class PacketConfigReportInterval {
   @IsInt()
   ping!: number;
 
@@ -50,18 +50,18 @@ export class PacketMT4ReportInterval {
   static!: number;
 }
 
-export class PacketMT4 {
+export class PacketConfig {
   @IsInt()
-  type!: 4;
+  type!: 'config';
 
   @IsObject()
-  gprs!: PacketMT4Gprs;
+  gprs!: PacketConfigGprs;
 
   @IsObject()
-  mqtt!: PacketMT4Mqtt;
+  mqtt!: PacketConfigMqtt;
 
   @IsObject()
-  reportInterval!: PacketMT4ReportInterval;
+  reportInterval!: PacketConfigReportInterval;
 
   @IsArray()
   networks!: string[];
@@ -110,21 +110,13 @@ export interface OriginalPacketMT4Convert {
 }
 
 function getNetworkMode(
-  netconfig: string | undefined
+  netconfig?: string
 ): 'auto' | 'gsm' | 'wcdma' | 'lte' | 'td-scdma' {
-  switch (netconfig) {
-    case '0':
-      return 'auto';
-    case '1':
-      return 'gsm';
-    case '2':
-      return 'wcdma';
-    case '3':
-      return 'lte';
-    case '4':
-      return 'td-scdma';
-  }
-
+  if (netconfig === '0') return 'auto';
+  else if (netconfig === '1') return 'gsm';
+  else if (netconfig === '2') return 'wcdma';
+  else if (netconfig === '3') return 'lte';
+  else if (netconfig === '4') return 'td-scdma';
   return 'auto';
 }
 
@@ -153,10 +145,10 @@ function getNetworks(convert: OriginalPacketMT4Convert): string[] {
   return networks;
 }
 
-export default function (original: OriginalPacketMT4): PacketMT4 {
+export default function (original: OriginalPacketMT4): PacketConfig {
   const convert = getObjectFromArray(original);
   return {
-    type: 4,
+    type: 'config',
     gprs: {
       apad: convert.apad,
       username: convert.auser,

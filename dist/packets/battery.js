@@ -10,42 +10,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PacketMT5 = void 0;
+exports.PacketBattery = void 0;
 const class_validator_1 = require("class-validator");
-class PacketMT5 {
+class PacketBattery {
 }
 __decorate([
     class_validator_1.IsInt(),
-    __metadata("design:type", Number)
-], PacketMT5.prototype, "type", void 0);
+    __metadata("design:type", String)
+], PacketBattery.prototype, "type", void 0);
 __decorate([
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], PacketMT5.prototype, "batterySN", void 0);
+], PacketBattery.prototype, "batterySN", void 0);
 __decorate([
     class_validator_1.IsInt(),
     __metadata("design:type", Number)
-], PacketMT5.prototype, "totalTrip", void 0);
+], PacketBattery.prototype, "totalTrip", void 0);
 __decorate([
     class_validator_1.IsInt(),
     __metadata("design:type", Number)
-], PacketMT5.prototype, "totalTime", void 0);
+], PacketBattery.prototype, "totalTime", void 0);
 __decorate([
     class_validator_1.IsInt(),
     __metadata("design:type", Number)
-], PacketMT5.prototype, "totalCapacity", void 0);
+], PacketBattery.prototype, "totalCapacity", void 0);
 __decorate([
     class_validator_1.IsString(),
     __metadata("design:type", String)
-], PacketMT5.prototype, "cellType", void 0);
+], PacketBattery.prototype, "cellType", void 0);
 __decorate([
     class_validator_1.IsArray(),
     __metadata("design:type", Array)
-], PacketMT5.prototype, "cells", void 0);
-exports.PacketMT5 = PacketMT5;
+], PacketBattery.prototype, "cells", void 0);
+exports.PacketBattery = PacketBattery;
 function default_1(original) {
     return {
-        type: 5,
+        type: 'battery',
         batterySN: original.batsn,
         totalTrip: original.totrip,
         totalTime: original.totime,

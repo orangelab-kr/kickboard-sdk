@@ -9,7 +9,7 @@ import {
   Min,
 } from 'class-validator';
 
-export class PacketMT1Version {
+export class PacketInfoVersion {
   @IsInt()
   @Min(0)
   @Max(65535)
@@ -21,9 +21,9 @@ export class PacketMT1Version {
   software!: number;
 }
 
-export class PacketMT1 {
+export class PacketInfo {
   @IsInt()
-  type!: 1;
+  type!: 'info';
 
   @IsString()
   iccId!: string;
@@ -37,10 +37,10 @@ export class PacketMT1 {
   macAddress!: string;
 
   @IsObject()
-  iotVersion!: PacketMT1Version;
+  iotVersion!: PacketInfoVersion;
 
   @IsObject()
-  ecuVersion!: PacketMT1Version;
+  ecuVersion!: PacketInfoVersion;
 }
 
 export interface OriginalPacketMT1 {
@@ -54,9 +54,9 @@ export interface OriginalPacketMT1 {
   mac: string /** 맥어드레스 */;
 }
 
-export default function (original: OriginalPacketMT1): PacketMT1 {
+export default function (original: OriginalPacketMT1): PacketInfo {
   return {
-    type: 1,
+    type: 'info',
     iccId: original.id,
     productId: original.product,
     macAddress: original.mac,

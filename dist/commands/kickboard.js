@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.KickboardReboot = exports.KickboardUnlock = exports.KickboardLock = exports.KickboardStop = exports.KickboardStart = void 0;
+exports.KickboardStatus = exports.KickboardInfo = exports.KickboardReboot = exports.KickboardUnlock = exports.KickboardLock = exports.KickboardStop = exports.KickboardStart = void 0;
 function KickboardStart() {
     return { cmd: 'start' };
 }
@@ -21,3 +21,11 @@ function KickboardReboot() {
     return { cmd: 'restart' };
 }
 exports.KickboardReboot = KickboardReboot;
+function KickboardInfo() {
+    return { cmd: 'getmt1packet' };
+}
+exports.KickboardInfo = KickboardInfo;
+function KickboardStatus() {
+    return { cmd: 'getmt2packet' };
+}
+exports.KickboardStatus = KickboardStatus;
