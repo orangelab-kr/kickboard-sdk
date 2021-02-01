@@ -42,7 +42,7 @@ export default class KickboardClient {
 
   /** 킥보드를 시작합니다. */
   public async start(): Promise<PacketStatus> {
-    const match = (packet: PacketStatus) => packet.vehicle.isEnabled === true;
+    const match = (packet: PacketStatus) => packet.isEnabled === true;
     return <PacketStatus>(
       await this.waitForResponse(KickboardStart(), 'status', match)
     );
@@ -50,7 +50,7 @@ export default class KickboardClient {
 
   /** 킥보드를 종료합니다. */
   public async stop(): Promise<PacketStatus> {
-    const match = (packet: PacketStatus) => packet.vehicle.isEnabled === false;
+    const match = (packet: PacketStatus) => packet.isEnabled === false;
     return <PacketStatus>(
       await this.waitForResponse(KickboardStop(), 'status', match)
     );

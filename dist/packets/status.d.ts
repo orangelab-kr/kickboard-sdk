@@ -29,10 +29,6 @@ export declare enum PacketStatusReportReason {
     TRIP_START = 7,
     TRIP_STOP = 8
 }
-export declare class PacketStatusVehicle {
-    isEnabled: boolean;
-    reportReason: PacketStatusReportReason[];
-}
 export declare class PacketStatusPowerDetails {
     battery: number;
     isCharging: boolean;
@@ -50,8 +46,8 @@ export declare class PacketStatus {
     gps: PacketStatusGps;
     network: PacketStatusNetwork;
     trip: PacketStatusTrip;
-    vehicle: PacketStatusVehicle;
     power: PacketStatusPower;
+    isEnabled: boolean;
     isLightsOn: boolean;
     isBuzzerOn: boolean;
     isControllerChecked: boolean;
@@ -62,6 +58,7 @@ export declare class PacketStatus {
     isKickstandOn: boolean;
     isLineLocked: boolean;
     isBatteryLocked: boolean;
+    reportReason: PacketStatusReportReason[];
     speed: number;
 }
 export interface OriginalPacketMT2 {

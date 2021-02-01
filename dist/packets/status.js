@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PacketStatus = exports.PacketStatusPower = exports.PacketStatusPowerDetails = exports.PacketStatusVehicle = exports.PacketStatusReportReason = exports.PacketStatusTrip = exports.PacketStatusNetwork = exports.PacketStatusGps = void 0;
+exports.PacketStatus = exports.PacketStatusPower = exports.PacketStatusPowerDetails = exports.PacketStatusReportReason = exports.PacketStatusTrip = exports.PacketStatusNetwork = exports.PacketStatusGps = void 0;
 const class_validator_1 = require("class-validator");
 const moment_1 = __importDefault(require("moment"));
 class PacketStatusGps {
@@ -95,17 +95,6 @@ var PacketStatusReportReason;
     PacketStatusReportReason[PacketStatusReportReason["TRIP_START"] = 7] = "TRIP_START";
     PacketStatusReportReason[PacketStatusReportReason["TRIP_STOP"] = 8] = "TRIP_STOP";
 })(PacketStatusReportReason = exports.PacketStatusReportReason || (exports.PacketStatusReportReason = {}));
-class PacketStatusVehicle {
-}
-__decorate([
-    class_validator_1.IsBoolean(),
-    __metadata("design:type", Boolean)
-], PacketStatusVehicle.prototype, "isEnabled", void 0);
-__decorate([
-    class_validator_1.IsArray(),
-    __metadata("design:type", Array)
-], PacketStatusVehicle.prototype, "reportReason", void 0);
-exports.PacketStatusVehicle = PacketStatusVehicle;
 class PacketStatusPowerDetails {
 }
 __decorate([
@@ -168,12 +157,12 @@ __decorate([
 ], PacketStatus.prototype, "trip", void 0);
 __decorate([
     class_validator_1.IsObject(),
-    __metadata("design:type", PacketStatusVehicle)
-], PacketStatus.prototype, "vehicle", void 0);
-__decorate([
-    class_validator_1.IsObject(),
     __metadata("design:type", PacketStatusPower)
 ], PacketStatus.prototype, "power", void 0);
+__decorate([
+    class_validator_1.IsBoolean(),
+    __metadata("design:type", Boolean)
+], PacketStatus.prototype, "isEnabled", void 0);
 __decorate([
     class_validator_1.IsBoolean(),
     __metadata("design:type", Boolean)
@@ -214,6 +203,10 @@ __decorate([
     class_validator_1.IsBoolean(),
     __metadata("design:type", Boolean)
 ], PacketStatus.prototype, "isBatteryLocked", void 0);
+__decorate([
+    class_validator_1.IsArray(),
+    __metadata("design:type", Array)
+], PacketStatus.prototype, "reportReason", void 0);
 __decorate([
     class_validator_1.IsInt(),
     class_validator_1.Min(0),
@@ -291,10 +284,6 @@ function default_1(original) {
             time: original.tt,
             distance: original.td,
         },
-        vehicle: {
-            isEnabled: original.sf === 1,
-            reportReason: getReportReason(original.rf),
-        },
         power: {
             batteryCycle: original.cy,
             speedLimit: original.sl,
@@ -307,7 +296,9 @@ function default_1(original) {
                 isCharging: charging.iot,
             },
         },
+        isEnabled: original.sf === 1,
         ...getStatus(original.io, original.ws),
+        reportReason: getReportReason(original.rf),
     };
 }
 exports.default = default_1;

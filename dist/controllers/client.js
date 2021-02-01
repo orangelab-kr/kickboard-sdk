@@ -11,12 +11,12 @@ class KickboardClient {
     }
     /** 킥보드를 시작합니다. */
     async start() {
-        const match = (packet) => packet.vehicle.isEnabled === true;
+        const match = (packet) => packet.isEnabled === true;
         return (await this.waitForResponse(commands_1.KickboardStart(), 'status', match));
     }
     /** 킥보드를 종료합니다. */
     async stop() {
-        const match = (packet) => packet.vehicle.isEnabled === false;
+        const match = (packet) => packet.isEnabled === false;
         return (await this.waitForResponse(commands_1.KickboardStop(), 'status', match));
     }
     /** 킥보드를 잠금합니다. */

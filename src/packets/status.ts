@@ -75,14 +75,6 @@ export enum PacketStatusReportReason {
   TRIP_STOP,
 }
 
-export class PacketStatusVehicle {
-  @IsBoolean()
-  isEnabled!: boolean;
-
-  @IsArray()
-  reportReason!: PacketStatusReportReason[];
-}
-
 export class PacketStatusPowerDetails {
   @IsInt()
   @Min(0)
@@ -129,10 +121,10 @@ export class PacketStatus {
   trip!: PacketStatusTrip;
 
   @IsObject()
-  vehicle!: PacketStatusVehicle;
-
-  @IsObject()
   power!: PacketStatusPower;
+
+  @IsBoolean()
+  isEnabled!: boolean;
 
   @IsBoolean()
   isLightsOn!: boolean;
@@ -163,6 +155,9 @@ export class PacketStatus {
 
   @IsBoolean()
   isBatteryLocked!: boolean;
+
+  @IsArray()
+  reportReason!: PacketStatusReportReason[];
 
   @IsInt()
   @Min(0)
@@ -286,10 +281,6 @@ export default function (original: OriginalPacketMT2): PacketStatus {
       time: original.tt,
       distance: original.td,
     },
-    vehicle: {
-      isEnabled: original.sf === 1,
-      reportReason: getReportReason(original.rf),
-    },
     power: {
       batteryCycle: original.cy,
       speedLimit: original.sl,
@@ -302,6 +293,8 @@ export default function (original: OriginalPacketMT2): PacketStatus {
         isCharging: charging.iot,
       },
     },
+    isEnabled: original.sf === 1,
     ...getStatus(original.io, original.ws),
+    reportReason: getReportReason(original.rf),
   };
 }
