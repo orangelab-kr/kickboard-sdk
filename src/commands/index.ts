@@ -1,3 +1,11 @@
+export * from './alarm';
+export * from './battery';
+export * from './bluetooth';
+export * from './buzzer';
+export * from './config';
+export * from './kickboard';
+export * from './light';
+
 import { AlarmOffCommand, AlarmOnCommand } from './alarm';
 import {
   BatteryLockCommand,

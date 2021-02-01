@@ -1,4 +1,4 @@
-import { OriginalPacketMT4Convert } from '../packets/config';
+import { OriginalPacketMT4Convert } from '../packets';
 
 /** Config Get Command */
 export interface ConfigGetCommand {

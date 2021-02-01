@@ -1,12 +1,20 @@
 import { ConsumeMessage } from 'amqplib';
 import { EventEmitter } from 'events';
-import Command from '../commands';
-import { AlarmMode, AlarmOff, AlarmOn } from '../commands/alarm';
-import { BatteryLock, BatteryStatus, BatteryUnlock } from '../commands/battery';
-import { BluetoothOff, BluetoothOn } from '../commands/bluetooth';
-import { BuzzerMode, BuzzerOff, BuzzerOn } from '../commands/buzzer';
-import { ConfigGet, ConfigSet } from '../commands/config';
-import {
+import { KickboardService } from '.';
+import Command, {
+  AlarmMode,
+  AlarmOff,
+  AlarmOn,
+  BatteryLock,
+  BatteryStatus,
+  BatteryUnlock,
+  BluetoothOff,
+  BluetoothOn,
+  BuzzerMode,
+  BuzzerOff,
+  BuzzerOn,
+  ConfigGet,
+  ConfigSet,
   KickboardInfo,
   KickboardLock,
   KickboardReboot,
@@ -14,14 +22,17 @@ import {
   KickboardStatus,
   KickboardStop,
   KickboardUnlock,
-} from '../commands/kickboard';
-import { LightMode, LightOff, LightOn } from '../commands/light';
-import { Packet } from '../packets';
-import { PacketBattery } from '../packets/battery';
-import { PacketConfig } from '../packets/config';
-import { PacketInfo } from '../packets/info';
-import { PacketStatus } from '../packets/status';
-import KickboardService from './service';
+  LightMode,
+  LightOff,
+  LightOn,
+} from '../commands';
+import {
+  Packet,
+  PacketBattery,
+  PacketConfig,
+  PacketInfo,
+  PacketStatus,
+} from '../packets';
 
 export default class KickboardClient {
   private queuePrefix = 'events';

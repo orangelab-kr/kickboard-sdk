@@ -1,7 +1,8 @@
-import amqplib from 'amqplib';
-import { EventEmitter } from 'events';
 import packets, { Packet } from '../packets';
-import KickboardClient from './client';
+
+import { EventEmitter } from 'events';
+import { KickboardClient } from '.';
+import amqplib from 'amqplib';
 
 export default class KickboardService extends EventEmitter {
   public amqp?: amqplib.Connection;
