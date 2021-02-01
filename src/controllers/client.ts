@@ -9,6 +9,7 @@ import { ConfigGet, ConfigSet } from '../commands/config';
 import {
   KickboardInfo,
   KickboardLock,
+  KickboardReboot,
   KickboardStart,
   KickboardStatus,
   KickboardStop,
@@ -237,6 +238,11 @@ export default class KickboardClient {
     );
   }
 
+  /** 킥보드를 재부팅합니다. */
+  public reboot(): void {
+    this.sendMessage(KickboardReboot());
+  }
+
   /** 구독을 생성합니다. 바로 듣기가 활성화되지 않습니다. */
   public async createSubscribe(): Promise<EventEmitter & { id: string }> {
     const id = this.generateQueueId();
@@ -288,7 +294,7 @@ export default class KickboardClient {
     command: Command,
     type: 'info' | 'status' | 'config' | 'battery',
     match?: (packet: any) => boolean,
-    seconds = 3
+    seconds = 10
   ): Promise<Packet> {
     const ms = seconds * 1000;
     const response = this.waitForResponseWithoutTimeout(

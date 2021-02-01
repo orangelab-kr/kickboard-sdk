@@ -80,6 +80,8 @@ export default class KickboardClient {
     setBluetoothKey(key: string): Promise<PacketConfig>;
     /** 네트워크 모드를 변경합니다. */
     setNetworkMode(mode: 0 | 1 | 2 | 3 | 4): Promise<PacketConfig>;
+    /** 킥보드를 재부팅합니다. */
+    reboot(): void;
     /** 구독을 생성합니다. 바로 듣기가 활성화되지 않습니다. */
     createSubscribe(): Promise<EventEmitter & {
         id: string;

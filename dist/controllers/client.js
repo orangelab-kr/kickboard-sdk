@@ -153,6 +153,10 @@ class KickboardClient {
     async setNetworkMode(mode) {
         return (await this.waitForResponse(config_1.ConfigSet('netconfig', `${mode}`), 'config'));
     }
+    /** 킥보드를 재부팅합니다. */
+    reboot() {
+        this.sendMessage(kickboard_1.KickboardReboot());
+    }
     /** 구독을 생성합니다. 바로 듣기가 활성화되지 않습니다. */
     async createSubscribe() {
         const id = this.generateQueueId();
@@ -192,7 +196,7 @@ class KickboardClient {
             throw Error('Cannot find channel from Kickboard Service.');
         await channel.deleteQueue(subscribe.id);
     }
-    async waitForResponse(command, type, match, seconds = 3) {
+    async waitForResponse(command, type, match, seconds = 10) {
         const ms = seconds * 1000;
         const response = this.waitForResponseWithoutTimeout(command, type, match, ms);
         const timeout = new Promise((resolve) => setTimeout(resolve, ms));
