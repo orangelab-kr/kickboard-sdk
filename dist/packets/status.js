@@ -186,7 +186,7 @@ __decorate([
 __decorate([
     class_validator_1.IsBoolean(),
     __metadata("design:type", Boolean)
-], PacketStatus.prototype, "isFailDown", void 0);
+], PacketStatus.prototype, "isFallDown", void 0);
 __decorate([
     class_validator_1.IsBoolean(),
     __metadata("design:type", Boolean)
@@ -252,7 +252,7 @@ function getStatus(io, ws) {
         isControllerChecked: status[2] === '1',
         isIotChecked: status[3] === '1',
         isBatteryChecked: status[4] === '1',
-        isFailDown: status[5] === '1',
+        isFallDown: status[5] === '1',
         isEBSBrakeOn: status[6] === '1',
         isKickstandOn: status[7] === '0',
         isLineLocked: status[8] === '0',

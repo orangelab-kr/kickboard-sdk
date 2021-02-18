@@ -142,7 +142,7 @@ export class PacketStatus {
   isBatteryChecked!: boolean;
 
   @IsBoolean()
-  isFailDown!: boolean;
+  isFallDown!: boolean;
 
   @IsBoolean()
   isEBSBrakeOn!: boolean;
@@ -233,7 +233,7 @@ function getStatus(
   isControllerChecked: boolean;
   isIotChecked: boolean;
   isBatteryChecked: boolean;
-  isFailDown: boolean;
+  isFallDown: boolean;
   isEBSBrakeOn: boolean;
   isKickstandOn: boolean;
   isLineLocked: boolean;
@@ -248,7 +248,7 @@ function getStatus(
     isControllerChecked: status[2] === '1',
     isIotChecked: status[3] === '1',
     isBatteryChecked: status[4] === '1',
-    isFailDown: status[5] === '1',
+    isFallDown: status[5] === '1',
     isEBSBrakeOn: status[6] === '1',
     isKickstandOn: status[7] === '0',
     isLineLocked: status[8] === '0',

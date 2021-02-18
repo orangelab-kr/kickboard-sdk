@@ -53,7 +53,7 @@ export declare class PacketStatus {
     isControllerChecked: boolean;
     isIotChecked: boolean;
     isBatteryChecked: boolean;
-    isFailDown: boolean;
+    isFallDown: boolean;
     isEBSBrakeOn: boolean;
     isKickstandOn: boolean;
     isLineLocked: boolean;
