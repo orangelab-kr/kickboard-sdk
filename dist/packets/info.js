@@ -59,9 +59,9 @@ exports.PacketInfo = PacketInfo;
 function default_1(original) {
     return {
         type: 'info',
-        iccId: original.id,
+        iccId: original.ic,
         productId: original.product,
-        macAddress: original.mac,
+        macAddress: original.ble_mac,
         iotVersion: {
             software: original.iot_sw,
             hardware: original.iot_hw,
