@@ -196,7 +196,7 @@ class KickboardClient {
         const timeout = new Promise((resolve) => setTimeout(resolve, ms));
         const race = await Promise.race([response, timeout]);
         if (!race) {
-            throw Error(`Kickboard has no response (timeout: ${seconds}s)`);
+            throw Error(`${this.kickboardId} has no response (timeout: ${seconds}s)`);
         }
         return race;
     }
