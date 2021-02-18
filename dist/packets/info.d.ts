@@ -13,7 +13,8 @@ export declare class PacketInfo {
 }
 export interface OriginalPacketMT1 {
     mt: 1 /** 메세지 타입 */;
-    ic: string /** 심카드 ID */;
+    id?: string /** 심카드 ID (Version >= 11) */;
+    ic?: string /** 심카드 ID (Version < 11) */;
     iot_hw: number /** IOT 하드웨어 버전 */;
     iot_sw: number /** IOT 소프트웨어 버전 */;
     ecu_hw: number /** ECU 하드웨어 버전 */;

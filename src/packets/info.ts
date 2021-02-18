@@ -45,7 +45,8 @@ export class PacketInfo {
 
 export interface OriginalPacketMT1 {
   mt: 1 /** 메세지 타입 */;
-  ic: string /** 심카드 ID */;
+  id?: string /** 심카드 ID (Version >= 11) */;
+  ic?: string /** 심카드 ID (Version < 11) */;
   iot_hw: number /** IOT 하드웨어 버전 */;
   iot_sw: number /** IOT 소프트웨어 버전 */;
   ecu_hw: number /** ECU 하드웨어 버전 */;
@@ -57,7 +58,7 @@ export interface OriginalPacketMT1 {
 export default function (original: OriginalPacketMT1): PacketInfo {
   return {
     type: 'info',
-    iccId: original.ic,
+    iccId: original.id || original.ic || 'Unknown ICC',
     productId: original.product,
     macAddress: original.ble_mac,
     iotVersion: {
