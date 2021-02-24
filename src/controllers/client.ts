@@ -36,7 +36,6 @@ import {
 
 export default class KickboardClient {
   private queuePrefix = 'events';
-  public readonly exchange = 'mqtt';
 
   constructor(private service: KickboardService, public kickboardId: string) {}
 
@@ -276,7 +275,7 @@ export default class KickboardClient {
 
     const options = { noAck: true };
     const pattern = this.getKickboardPattern();
-    await channel.bindQueue(subscribe.id, this.exchange, pattern);
+    await channel.bindQueue(subscribe.id, this.service.exchange, pattern);
     const onMessage = async (res: ConsumeMessage | null) => {
       if (!res) return;
       const packet = this.service.getPacket(res);
@@ -366,6 +365,6 @@ export default class KickboardClient {
 
     const stringify = JSON.stringify(command);
     const buffer = Buffer.from(stringify);
-    channel.publish(this.exchange, this.kickboardId, buffer);
+    channel.publish(this.service.exchange, this.kickboardId, buffer);
   }
 }

@@ -1,10 +1,10 @@
-import packets, { Packet } from '../packets';
-
+import amqplib from 'amqplib';
 import { EventEmitter } from 'events';
 import { KickboardClient } from '.';
-import amqplib from 'amqplib';
+import packets, { Packet } from '../packets';
 
 export default class KickboardService extends EventEmitter {
+  public readonly exchange = 'mqtt';
   public amqp?: amqplib.Connection;
   public channel?: amqplib.Channel;
   private hostname: string;
@@ -37,6 +37,7 @@ export default class KickboardService extends EventEmitter {
   public async setSubscribe(queue: string): Promise<void> {
     if (!this.amqp || !this.channel) return;
     await this.channel.assertQueue(queue);
+    await this.channel.bindQueue(queue, this.exchange, 'data.*.scootor.*');
     this.channel.consume(queue, this.onUpdateQueue.bind(this));
   }
 
