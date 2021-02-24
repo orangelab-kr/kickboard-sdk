@@ -7,7 +7,6 @@ class KickboardClient {
         this.service = service;
         this.kickboardId = kickboardId;
         this.queuePrefix = 'events';
-        this.exchange = 'mqtt';
     }
     /** 킥보드를 시작합니다. */
     async start() {
@@ -168,7 +167,7 @@ class KickboardClient {
         });
         const options = { noAck: true };
         const pattern = this.getKickboardPattern();
-        await channel.bindQueue(subscribe.id, this.exchange, pattern);
+        await channel.bindQueue(subscribe.id, this.service.exchange, pattern);
         const onMessage = async (res) => {
             if (!res)
                 return;
@@ -233,7 +232,7 @@ class KickboardClient {
             return;
         const stringify = JSON.stringify(command);
         const buffer = Buffer.from(stringify);
-        channel.publish(this.exchange, this.kickboardId, buffer);
+        channel.publish(this.service.exchange, this.kickboardId, buffer);
     }
 }
 exports.default = KickboardClient;

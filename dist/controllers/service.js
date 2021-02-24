@@ -3,13 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const packets_1 = __importDefault(require("../packets"));
+const amqplib_1 = __importDefault(require("amqplib"));
 const events_1 = require("events");
 const _1 = require(".");
-const amqplib_1 = __importDefault(require("amqplib"));
+const packets_1 = __importDefault(require("../packets"));
 class KickboardService extends events_1.EventEmitter {
     constructor(props) {
         super();
+        this.exchange = 'mqtt';
         this.hostname = props.hostname;
         this.username = props.username;
         this.password = props.password;
@@ -26,6 +27,7 @@ class KickboardService extends events_1.EventEmitter {
         if (!this.amqp || !this.channel)
             return;
         await this.channel.assertQueue(queue);
+        await this.channel.bindQueue(queue, this.exchange, 'data.*.scootor.*');
         this.channel.consume(queue, this.onUpdateQueue.bind(this));
     }
     /** RabbitMQ 이벤트 리스너입니다. */

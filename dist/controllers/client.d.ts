@@ -7,7 +7,6 @@ export default class KickboardClient {
     private service;
     kickboardId: string;
     private queuePrefix;
-    readonly exchange = "mqtt";
     constructor(service: KickboardService, kickboardId: string);
     /** 킥보드를 시작합니다. */
     start(): Promise<PacketStatus>;
