@@ -3,10 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const amqplib_1 = __importDefault(require("amqplib"));
+const packets_1 = __importDefault(require("../packets"));
 const events_1 = require("events");
 const _1 = require(".");
-const packets_1 = __importDefault(require("../packets"));
+const amqplib_1 = __importDefault(require("amqplib"));
 class KickboardService extends events_1.EventEmitter {
     constructor(props) {
         super();
@@ -23,10 +23,11 @@ class KickboardService extends events_1.EventEmitter {
         this.channel = await this.amqp.createChannel();
     }
     /** RabbitMQ 분산화 처리를 위한 용도로 사용됩니다. */
-    async setSubscribe(queue) {
+    async setSubscribe(queue, maxQueue = 0) {
         if (!this.amqp || !this.channel)
             return;
-        await this.channel.assertQueue(queue);
+        await this.channel.prefetch(maxQueue);
+        await this.channel.assertQueue(queue, {});
         await this.channel.bindQueue(queue, this.exchange, 'data.*.scootor.*');
         this.channel.consume(queue, this.onUpdateQueue.bind(this));
     }

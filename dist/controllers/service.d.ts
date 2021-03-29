@@ -1,8 +1,8 @@
 /// <reference types="node" />
-import amqplib from 'amqplib';
+import { Packet } from '../packets';
 import { EventEmitter } from 'events';
 import { KickboardClient } from '.';
-import { Packet } from '../packets';
+import amqplib from 'amqplib';
 export default class KickboardService extends EventEmitter {
     readonly exchange = "mqtt";
     amqp?: amqplib.Connection;
@@ -20,7 +20,7 @@ export default class KickboardService extends EventEmitter {
     /** RabbitMQ 연결 후 이벤트를 등록합니다. */
     connect(): Promise<void>;
     /** RabbitMQ 분산화 처리를 위한 용도로 사용됩니다. */
-    setSubscribe(queue: string): Promise<void>;
+    setSubscribe(queue: string, maxQueue?: number): Promise<void>;
     /** RabbitMQ 이벤트 리스너입니다. */
     private onUpdateQueue;
     /** RabbitMQ ACK 신호를 발생합니다. */

@@ -1,7 +1,8 @@
-import amqplib from 'amqplib';
+import packets, { Packet } from '../packets';
+
 import { EventEmitter } from 'events';
 import { KickboardClient } from '.';
-import packets, { Packet } from '../packets';
+import amqplib from 'amqplib';
 
 export default class KickboardService extends EventEmitter {
   public readonly exchange = 'mqtt';
@@ -34,9 +35,10 @@ export default class KickboardService extends EventEmitter {
   }
 
   /** RabbitMQ 분산화 처리를 위한 용도로 사용됩니다. */
-  public async setSubscribe(queue: string): Promise<void> {
+  public async setSubscribe(queue: string, maxQueue = 0): Promise<void> {
     if (!this.amqp || !this.channel) return;
-    await this.channel.assertQueue(queue);
+    await this.channel.prefetch(maxQueue);
+    await this.channel.assertQueue(queue, {});
     await this.channel.bindQueue(queue, this.exchange, 'data.*.scootor.*');
     this.channel.consume(queue, this.onUpdateQueue.bind(this));
   }
