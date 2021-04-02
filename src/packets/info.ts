@@ -55,7 +55,7 @@ export interface OriginalPacketMT1 {
   ble_mac: string /** 맥어드레스 */;
 }
 
-export default function (original: OriginalPacketMT1): PacketInfo {
+export function convertInfoPacket(original: OriginalPacketMT1): PacketInfo {
   return {
     type: 'info',
     iccId: original.id || original.ic || 'Unknown ICC',

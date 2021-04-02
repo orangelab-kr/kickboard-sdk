@@ -35,7 +35,9 @@ export interface OriginalPacketMT5 {
   cell: number[] /** 셀 볼트수 */;
 }
 
-export default function (original: OriginalPacketMT5): PacketBattery {
+export function convertBatteryPacket(
+  original: OriginalPacketMT5
+): PacketBattery {
   return {
     type: 'battery',
     batterySN: original.batsn,

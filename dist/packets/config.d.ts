@@ -55,4 +55,4 @@ export interface OriginalPacketMT4Convert {
     blekey: string /** 블루투스 KEY */;
     netconfig: string /** 네트워크 설정 */;
 }
-export default function (original: OriginalPacketMT4): PacketConfig;
+export declare function convertConfigPacket(original: OriginalPacketMT4): PacketConfig;

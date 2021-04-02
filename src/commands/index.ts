@@ -6,20 +6,19 @@ export * from './config';
 export * from './kickboard';
 export * from './light';
 
-import { AlarmOffCommand, AlarmOnCommand } from './alarm';
 import {
+  AlarmOffCommand,
+  AlarmOnCommand,
   BatteryLockCommand,
   BatteryStatusCommand,
   BatteryUnlockCommand,
-} from './battery';
-import { BluetoothOffCommand, BluetoothOnCommand } from './bluetooth';
-import { BuzzerOffCommand, BuzzerOnCommand } from './buzzer';
-import {
+  BluetoothOffCommand,
+  BluetoothOnCommand,
+  BuzzerOffCommand,
+  BuzzerOnCommand,
   ConfigGetCommand,
   ConfigRestoreCommand,
   ConfigSetCommand,
-} from './config';
-import {
   KickboardInfoCommand,
   KickboardLockCommand,
   KickboardRebootCommand,
@@ -27,8 +26,9 @@ import {
   KickboardStatusCommand,
   KickboardStopCommand,
   KickboardUnlockCommand,
-} from './kickboard';
-import { LightOffCommand, LightOnCommand } from './light';
+  LightOffCommand,
+  LightOnCommand,
+} from '.';
 
 export type AlarmCommand = AlarmOnCommand | AlarmOffCommand;
 export type BatteryCommand =
@@ -51,7 +51,7 @@ export type KickboardCommand =
   | KickboardStatusCommand;
 export type LightCommand = LightOnCommand | LightOffCommand;
 
-type Command =
+export type Command =
   | AlarmCommand
   | BatteryCommand
   | BluetoothCommand
@@ -59,5 +59,3 @@ type Command =
   | ConfigCommand
   | KickboardCommand
   | LightCommand;
-
-export default Command;

@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PacketStatus = exports.PacketStatusPower = exports.PacketStatusPowerDetails = exports.PacketStatusReportReason = exports.PacketStatusTrip = exports.PacketStatusNetwork = exports.PacketStatusGps = void 0;
+exports.convertStatusPacket = exports.PacketStatus = exports.PacketStatusPower = exports.PacketStatusPowerDetails = exports.PacketStatusReportReason = exports.PacketStatusTrip = exports.PacketStatusNetwork = exports.PacketStatusGps = void 0;
 const class_validator_1 = require("class-validator");
 const moment_1 = __importDefault(require("moment"));
 class PacketStatusGps {
@@ -260,7 +260,7 @@ function getStatus(io, ws) {
         speed: ws,
     };
 }
-function default_1(original) {
+function convertStatusPacket(original) {
     const charging = getChargingStatus(original.pw);
     return {
         type: 'status',
@@ -301,4 +301,4 @@ function default_1(original) {
         reportReason: getReportReason(original.rf),
     };
 }
-exports.default = default_1;
+exports.convertStatusPacket = convertStatusPacket;

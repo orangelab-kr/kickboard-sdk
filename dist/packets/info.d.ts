@@ -22,4 +22,4 @@ export interface OriginalPacketMT1 {
     product: number /** 제품 ID */;
     ble_mac: string /** 맥어드레스 */;
 }
-export default function (original: OriginalPacketMT1): PacketInfo;
+export declare function convertInfoPacket(original: OriginalPacketMT1): PacketInfo;

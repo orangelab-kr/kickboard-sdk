@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const packets_1 = __importDefault(require("../packets"));
+exports.KickboardService = void 0;
+const __1 = require("..");
 const events_1 = require("events");
-const _1 = require(".");
 const amqplib_1 = __importDefault(require("amqplib"));
 class KickboardService extends events_1.EventEmitter {
     constructor(props) {
@@ -57,13 +57,13 @@ class KickboardService extends events_1.EventEmitter {
     }
     /** 킥보드 ID 를 사용하여 객체를 생성합니다. */
     getKickboard(kickboardId) {
-        return new _1.KickboardClient(this, kickboardId);
+        return new __1.KickboardClient(this, kickboardId);
     }
     /** 메세지를 통한 패킷을 가져옵니다. */
     getPacket(res) {
         const content = res.content.toString();
-        const packet = packets_1.default(JSON.parse(content));
+        const packet = __1.convertPacket(JSON.parse(content));
         return packet;
     }
 }
-exports.default = KickboardService;
+exports.KickboardService = KickboardService;

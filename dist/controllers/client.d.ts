@@ -1,9 +1,7 @@
 /// <reference types="node" />
 import { EventEmitter } from 'events';
-import { KickboardService } from '.';
-import { AlarmMode, BuzzerMode, LightMode } from '../commands';
-import { PacketBattery, PacketConfig, PacketInfo, PacketStatus } from '../packets';
-export default class KickboardClient {
+import { AlarmMode, BuzzerMode, KickboardService, LightMode, PacketBattery, PacketConfig, PacketInfo, PacketStatus } from '..';
+export declare class KickboardClient {
     private service;
     kickboardId: string;
     private queuePrefix;

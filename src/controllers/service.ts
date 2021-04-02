@@ -1,10 +1,9 @@
-import packets, { Packet } from '../packets';
+import { KickboardClient, Packet, convertPacket } from '..';
 
 import { EventEmitter } from 'events';
-import { KickboardClient } from '.';
 import amqplib from 'amqplib';
 
-export default class KickboardService extends EventEmitter {
+export class KickboardService extends EventEmitter {
   public readonly exchange = 'mqtt';
   public amqp?: amqplib.Connection;
   public channel?: amqplib.Channel;
@@ -77,7 +76,7 @@ export default class KickboardService extends EventEmitter {
   /** 메세지를 통한 패킷을 가져옵니다. */
   public getPacket(res: amqplib.ConsumeMessage): Packet | undefined {
     const content = res.content.toString();
-    const packet = packets(JSON.parse(content));
+    const packet = convertPacket(JSON.parse(content));
     return packet;
   }
 }

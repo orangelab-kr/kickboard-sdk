@@ -17,4 +17,4 @@ export interface OriginalPacketMT5 {
     ctype: string /** 셀 타입 */;
     cell: number[] /** 셀 볼트수 */;
 }
-export default function (original: OriginalPacketMT5): PacketBattery;
+export declare function convertBatteryPacket(original: OriginalPacketMT5): PacketBattery;

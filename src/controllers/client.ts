@@ -1,7 +1,6 @@
 import { ConsumeMessage } from 'amqplib';
 import { EventEmitter } from 'events';
-import { KickboardService } from '.';
-import Command, {
+import {
   AlarmMode,
   AlarmOff,
   AlarmOn,
@@ -13,11 +12,13 @@ import Command, {
   BuzzerMode,
   BuzzerOff,
   BuzzerOn,
+  Command,
   ConfigGet,
   ConfigSet,
   KickboardInfo,
   KickboardLock,
   KickboardReboot,
+  KickboardService,
   KickboardStart,
   KickboardStatus,
   KickboardStop,
@@ -25,16 +26,14 @@ import Command, {
   LightMode,
   LightOff,
   LightOn,
-} from '../commands';
-import {
   Packet,
   PacketBattery,
   PacketConfig,
   PacketInfo,
   PacketStatus,
-} from '../packets';
+} from '..';
 
-export default class KickboardClient {
+export class KickboardClient {
   private queuePrefix = 'events';
 
   constructor(private service: KickboardService, public kickboardId: string) {}

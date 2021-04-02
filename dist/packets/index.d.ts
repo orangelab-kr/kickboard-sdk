@@ -1,15 +1,8 @@
-import { OriginalPacketMT1, PacketInfo } from './info';
-import { OriginalPacketMT2, PacketStatus } from './status';
-import { OriginalPacketMT4, PacketConfig } from './config';
-import { OriginalPacketMT5, PacketBattery } from './battery';
+import { OriginalPacketMT1, OriginalPacketMT2, OriginalPacketMT4, OriginalPacketMT5, PacketBattery, PacketConfig, PacketInfo, PacketStatus } from '.';
 export * from './battery';
-export { default as MT5, OriginalPacketMT5, PacketBattery } from './battery';
 export * from './config';
-export { default as MT4 } from './config';
 export * from './info';
-export { default as MT1 } from './info';
 export * from './status';
-export { default as MT2 } from './status';
 export declare type OriginalPacket = OriginalPacketMT1 | OriginalPacketMT2 | OriginalPacketMT4 | OriginalPacketMT5;
 export declare type Packet = PacketInfo | PacketStatus | PacketConfig | PacketBattery;
-export default function (original: OriginalPacket): Packet | undefined;
+export declare function convertPacket(original: OriginalPacket): Packet | undefined;

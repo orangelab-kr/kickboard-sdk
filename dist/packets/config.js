@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PacketConfig = exports.PacketConfigReportInterval = exports.PacketConfigMqtt = exports.PacketConfigGprs = void 0;
+exports.convertConfigPacket = exports.PacketConfig = exports.PacketConfigReportInterval = exports.PacketConfigMqtt = exports.PacketConfigGprs = void 0;
 const class_validator_1 = require("class-validator");
 class PacketConfigGprs {
 }
@@ -138,7 +138,7 @@ function getNetworks(convert) {
     }
     return networks;
 }
-function default_1(original) {
+function convertConfigPacket(original) {
     const convert = getObjectFromArray(original);
     return {
         type: 'config',
@@ -166,4 +166,4 @@ function default_1(original) {
         networkMode: getNetworkMode(convert.netconfig),
     };
 }
-exports.default = default_1;
+exports.convertConfigPacket = convertConfigPacket;

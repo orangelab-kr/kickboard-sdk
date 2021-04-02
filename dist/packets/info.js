@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PacketInfo = exports.PacketInfoVersion = void 0;
+exports.convertInfoPacket = exports.PacketInfo = exports.PacketInfoVersion = void 0;
 const class_validator_1 = require("class-validator");
 class PacketInfoVersion {
 }
@@ -56,7 +56,7 @@ __decorate([
     __metadata("design:type", PacketInfoVersion)
 ], PacketInfo.prototype, "ecuVersion", void 0);
 exports.PacketInfo = PacketInfo;
-function default_1(original) {
+function convertInfoPacket(original) {
     return {
         type: 'info',
         iccId: original.id || original.ic || 'Unknown ICC',
@@ -72,4 +72,4 @@ function default_1(original) {
         },
     };
 }
-exports.default = default_1;
+exports.convertInfoPacket = convertInfoPacket;

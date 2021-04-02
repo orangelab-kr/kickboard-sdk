@@ -88,4 +88,4 @@ export interface OriginalPacketMT2 {
     cy: number /** 배터리 사이클 */;
     sl: number /** 시속 제한 */;
 }
-export default function (original: OriginalPacketMT2): PacketStatus;
+export declare function convertStatusPacket(original: OriginalPacketMT2): PacketStatus;

@@ -257,7 +257,7 @@ function getStatus(
   };
 }
 
-export default function (original: OriginalPacketMT2): PacketStatus {
+export function convertStatusPacket(original: OriginalPacketMT2): PacketStatus {
   const charging = getChargingStatus(original.pw);
   return {
     type: 'status',

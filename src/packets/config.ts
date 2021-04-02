@@ -145,7 +145,7 @@ function getNetworks(convert: OriginalPacketMT4Convert): string[] {
   return networks;
 }
 
-export default function (original: OriginalPacketMT4): PacketConfig {
+export function convertConfigPacket(original: OriginalPacketMT4): PacketConfig {
   const convert = getObjectFromArray(original);
   return {
     type: 'config',

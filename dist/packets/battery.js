@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PacketBattery = void 0;
+exports.convertBatteryPacket = exports.PacketBattery = void 0;
 const class_validator_1 = require("class-validator");
 class PacketBattery {
 }
@@ -43,7 +43,7 @@ __decorate([
     __metadata("design:type", Array)
 ], PacketBattery.prototype, "cells", void 0);
 exports.PacketBattery = PacketBattery;
-function default_1(original) {
+function convertBatteryPacket(original) {
     return {
         type: 'battery',
         batterySN: original.batsn,
@@ -54,4 +54,4 @@ function default_1(original) {
         cells: original.cell,
     };
 }
-exports.default = default_1;
+exports.convertBatteryPacket = convertBatteryPacket;
