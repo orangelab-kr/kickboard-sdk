@@ -52,7 +52,9 @@ export class KickboardService extends EventEmitter {
       const eventName = packet.type;
       const done = this.getDoneFunction(res);
       const kickboard = this.getKickboard(kickboardId);
-      this.emit(eventName, kickboard, packet, done);
+      const timestamp = res.properties.headers['timestamp_in_ms'];
+      const createdAt = new Date(timestamp || Date.now());
+      this.emit(eventName, kickboard, packet, createdAt, done);
     }
   }
 
