@@ -303,7 +303,7 @@ export class KickboardClient {
     command: Command,
     type: 'info' | 'status' | 'config' | 'battery',
     match?: (packet: any) => boolean,
-    seconds = 10
+    seconds = 3
   ): Promise<Packet> {
     const ms = seconds * 1000;
     const response = this.waitForResponseWithoutTimeout(

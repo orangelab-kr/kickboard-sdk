@@ -190,7 +190,7 @@ class KickboardClient {
             throw Error('Cannot find channel from Kickboard Service.');
         await channel.deleteQueue(subscribe.id);
     }
-    async waitForResponse(command, type, match, seconds = 10) {
+    async waitForResponse(command, type, match, seconds = 3) {
         const ms = seconds * 1000;
         const response = this.waitForResponseWithoutTimeout(command, type, match, ms);
         const timeout = new Promise((resolve) => setTimeout(resolve, ms));
