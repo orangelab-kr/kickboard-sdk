@@ -63,9 +63,14 @@ class KickboardService extends events_1.EventEmitter {
     }
     /** 메세지를 통한 패킷을 가져옵니다. */
     getPacket(res) {
-        const content = res.content.toString();
-        const packet = __1.convertPacket(JSON.parse(content));
-        return packet;
+        try {
+            const content = res.content.toString();
+            const packet = __1.convertPacket(JSON.parse(content));
+            return packet;
+        }
+        catch (err) {
+            this.getDoneFunction(res)();
+        }
     }
 }
 exports.KickboardService = KickboardService;

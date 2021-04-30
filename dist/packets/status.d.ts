@@ -1,7 +1,7 @@
 /** 킥보드 일정 간격으로 발송되는 프로토콜 인터페이스입니다. */
-import { Moment } from 'moment';
+import { Dayjs } from 'dayjs';
 export declare class PacketStatusGps {
-    timestamp: Moment;
+    timestamp: Dayjs;
     latitude: number;
     longitude: number;
     satelliteUsedCount: number;
@@ -41,7 +41,7 @@ export declare class PacketStatusPower {
 }
 export declare class PacketStatus {
     type: 'status';
-    timestamp: Moment;
+    timestamp: Dayjs;
     messageNumber: number;
     gps: PacketStatusGps;
     network: PacketStatusNetwork;

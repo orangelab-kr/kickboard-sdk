@@ -1,26 +1,42 @@
 "use strict";
 /** 킥보드 일정 간격으로 발송되는 프로토콜 인터페이스입니다. */
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.convertStatusPacket = exports.PacketStatus = exports.PacketStatusPower = exports.PacketStatusPowerDetails = exports.PacketStatusReportReason = exports.PacketStatusTrip = exports.PacketStatusNetwork = exports.PacketStatusGps = void 0;
 const class_validator_1 = require("class-validator");
-const moment_1 = __importDefault(require("moment"));
+const dayjs_1 = __importStar(require("dayjs"));
 class PacketStatusGps {
 }
 __decorate([
     class_validator_1.IsNotEmpty(),
-    __metadata("design:type", Object)
+    __metadata("design:type", dayjs_1.Dayjs)
 ], PacketStatusGps.prototype, "timestamp", void 0);
 __decorate([
     class_validator_1.IsInt(),
@@ -135,7 +151,7 @@ __decorate([
 ], PacketStatus.prototype, "type", void 0);
 __decorate([
     class_validator_1.IsNotEmpty(),
-    __metadata("design:type", Object)
+    __metadata("design:type", dayjs_1.Dayjs)
 ], PacketStatus.prototype, "timestamp", void 0);
 __decorate([
     class_validator_1.IsInt(),
@@ -264,10 +280,10 @@ function convertStatusPacket(original) {
     const charging = getChargingStatus(original.pw);
     return {
         type: 'status',
-        timestamp: moment_1.default(original.rtc),
+        timestamp: dayjs_1.default(original.rtc),
         messageNumber: original.mn,
         gps: {
-            timestamp: moment_1.default(original.gtc),
+            timestamp: dayjs_1.default(original.gtc),
             latitude: original.la,
             longitude: original.lo,
             satelliteUsedCount: original.su,
