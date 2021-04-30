@@ -9,11 +9,11 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import moment, { Moment } from 'moment';
+import dayjs, { Dayjs } from 'dayjs';
 
 export class PacketStatusGps {
   @IsNotEmpty()
-  timestamp!: Moment;
+  timestamp!: Dayjs;
 
   @IsInt()
   @Min(-90)
@@ -104,7 +104,7 @@ export class PacketStatus {
   type!: 'status';
 
   @IsNotEmpty()
-  timestamp!: Moment;
+  timestamp!: Dayjs;
 
   @IsInt()
   @Min(0)
@@ -261,10 +261,10 @@ export function convertStatusPacket(original: OriginalPacketMT2): PacketStatus {
   const charging = getChargingStatus(original.pw);
   return {
     type: 'status',
-    timestamp: moment(original.rtc),
+    timestamp: dayjs(original.rtc),
     messageNumber: original.mn,
     gps: {
-      timestamp: moment(original.gtc),
+      timestamp: dayjs(original.gtc),
       latitude: original.la,
       longitude: original.lo,
       satelliteUsedCount: original.su,
