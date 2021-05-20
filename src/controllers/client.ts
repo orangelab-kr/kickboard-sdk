@@ -316,7 +316,9 @@ export class KickboardClient {
     const timeout = new Promise((resolve) => setTimeout(resolve, ms));
     const race = <Packet>await Promise.race([response, timeout]);
     if (!race) {
-      throw Error(`${this.kickboardId} has no response (timeout: ${seconds}s)`);
+      throw Error(
+        `${this.kickboardId} 킥보드에 응답이 없습니다. (최대: ${seconds}초)`
+      );
     }
 
     return race;
