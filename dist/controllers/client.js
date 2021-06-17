@@ -57,13 +57,11 @@ class KickboardClient {
     }
     /** 불을 킵니다. */
     async lightOn(mode, seconds = 0) {
-        const match = (packet) => packet.isLightsOn === true;
-        await this.waitForResponse(__1.LightOn(mode, seconds), 'status', match);
+        this.sendMessage(__1.LightOn(mode, seconds));
     }
     /** 불을 끕니다. */
     async lightOff() {
-        const match = (packet) => packet.isLightsOn === false;
-        await this.waitForResponse(__1.LightOff(), 'status', match);
+        this.sendMessage(__1.LightOff());
     }
     /** 하드웨어, 소프트웨어 정보를 가져옵니다. */
     async getInfo() {

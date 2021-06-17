@@ -98,14 +98,12 @@ export class KickboardClient {
 
   /** 불을 킵니다. */
   public async lightOn(mode: LightMode, seconds = 0): Promise<void> {
-    const match = (packet: PacketStatus) => packet.isLightsOn === true;
-    await this.waitForResponse(LightOn(mode, seconds), 'status', match);
+    this.sendMessage(LightOn(mode, seconds));
   }
 
   /** 불을 끕니다. */
   public async lightOff(): Promise<void> {
-    const match = (packet: PacketStatus) => packet.isLightsOn === false;
-    await this.waitForResponse(LightOff(), 'status', match);
+    this.sendMessage(LightOff());
   }
 
   /** 하드웨어, 소프트웨어 정보를 가져옵니다. */
