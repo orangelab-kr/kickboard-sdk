@@ -13,6 +13,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.convertInfoPacket = exports.PacketInfo = exports.PacketInfoVersion = void 0;
 const class_validator_1 = require("class-validator");
 class PacketInfoVersion {
+    hardware;
+    software;
 }
 __decorate([
     class_validator_1.IsInt(),
@@ -28,6 +30,12 @@ __decorate([
 ], PacketInfoVersion.prototype, "software", void 0);
 exports.PacketInfoVersion = PacketInfoVersion;
 class PacketInfo {
+    type;
+    iccId;
+    productId;
+    macAddress;
+    iotVersion;
+    ecuVersion;
 }
 __decorate([
     class_validator_1.IsInt(),

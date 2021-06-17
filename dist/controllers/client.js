@@ -4,10 +4,12 @@ exports.KickboardClient = void 0;
 const events_1 = require("events");
 const __1 = require("..");
 class KickboardClient {
+    service;
+    kickboardId;
+    queuePrefix = 'events';
     constructor(service, kickboardId) {
         this.service = service;
         this.kickboardId = kickboardId;
-        this.queuePrefix = 'events';
     }
     /** 킥보드를 시작합니다. */
     async start() {
@@ -190,13 +192,13 @@ class KickboardClient {
             throw Error('Cannot find channel from Kickboard Service.');
         await channel.deleteQueue(subscribe.id);
     }
-    async waitForResponse(command, type, match, seconds = 3) {
+    async waitForResponse(command, type, match, seconds = 8) {
         const ms = seconds * 1000;
         const response = this.waitForResponseWithoutTimeout(command, type, match, ms);
         const timeout = new Promise((resolve) => setTimeout(resolve, ms));
         const race = await Promise.race([response, timeout]);
         if (!race) {
-            throw Error(`${this.kickboardId} has no response (timeout: ${seconds}s)`);
+            throw Error(`${this.kickboardId} 킥보드에 응답이 없습니다. (최대: ${seconds}초)`);
         }
         return race;
     }

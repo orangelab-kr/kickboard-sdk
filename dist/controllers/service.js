@@ -8,9 +8,15 @@ const __1 = require("..");
 const events_1 = require("events");
 const amqplib_1 = __importDefault(require("amqplib"));
 class KickboardService extends events_1.EventEmitter {
+    exchange = 'mqtt';
+    amqp;
+    channel;
+    hostname;
+    username;
+    password;
+    vhost;
     constructor(props) {
         super();
-        this.exchange = 'mqtt';
         this.hostname = props.hostname;
         this.username = props.username;
         this.password = props.password;

@@ -13,6 +13,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.convertConfigPacket = exports.PacketConfig = exports.PacketConfigReportInterval = exports.PacketConfigMqtt = exports.PacketConfigGprs = void 0;
 const class_validator_1 = require("class-validator");
 class PacketConfigGprs {
+    apad;
+    username;
+    password;
 }
 __decorate([
     class_validator_1.IsString(),
@@ -28,6 +31,11 @@ __decorate([
 ], PacketConfigGprs.prototype, "password", void 0);
 exports.PacketConfigGprs = PacketConfigGprs;
 class PacketConfigMqtt {
+    ipAddress;
+    port;
+    clientId;
+    username;
+    password;
 }
 __decorate([
     class_validator_1.IsString(),
@@ -51,6 +59,9 @@ __decorate([
 ], PacketConfigMqtt.prototype, "password", void 0);
 exports.PacketConfigMqtt = PacketConfigMqtt;
 class PacketConfigReportInterval {
+    ping;
+    trip;
+    static;
 }
 __decorate([
     class_validator_1.IsInt(),
@@ -66,6 +77,15 @@ __decorate([
 ], PacketConfigReportInterval.prototype, "static", void 0);
 exports.PacketConfigReportInterval = PacketConfigReportInterval;
 class PacketConfig {
+    type;
+    gprs;
+    mqtt;
+    reportInterval;
+    networks;
+    impact;
+    bluetoothKey;
+    speedLimit;
+    networkMode;
 }
 __decorate([
     class_validator_1.IsInt(),

@@ -33,6 +33,12 @@ exports.convertStatusPacket = exports.PacketStatus = exports.PacketStatusPower =
 const class_validator_1 = require("class-validator");
 const dayjs_1 = __importStar(require("dayjs"));
 class PacketStatusGps {
+    timestamp;
+    latitude;
+    longitude;
+    satelliteUsedCount;
+    isValid;
+    speed;
 }
 __decorate([
     class_validator_1.IsNotEmpty(),
@@ -68,6 +74,10 @@ __decorate([
 ], PacketStatusGps.prototype, "speed", void 0);
 exports.PacketStatusGps = PacketStatusGps;
 class PacketStatusNetwork {
+    isRoaming;
+    signalStrength;
+    mcc;
+    mnc;
 }
 __decorate([
     class_validator_1.IsBoolean(),
@@ -89,6 +99,8 @@ __decorate([
 ], PacketStatusNetwork.prototype, "mnc", void 0);
 exports.PacketStatusNetwork = PacketStatusNetwork;
 class PacketStatusTrip {
+    time;
+    distance;
 }
 __decorate([
     class_validator_1.IsInt(),
@@ -112,6 +124,8 @@ var PacketStatusReportReason;
     PacketStatusReportReason[PacketStatusReportReason["TRIP_STOP"] = 8] = "TRIP_STOP";
 })(PacketStatusReportReason = exports.PacketStatusReportReason || (exports.PacketStatusReportReason = {}));
 class PacketStatusPowerDetails {
+    battery;
+    isCharging;
 }
 __decorate([
     class_validator_1.IsInt(),
@@ -125,6 +139,10 @@ __decorate([
 ], PacketStatusPowerDetails.prototype, "isCharging", void 0);
 exports.PacketStatusPowerDetails = PacketStatusPowerDetails;
 class PacketStatusPower {
+    scooter;
+    iot;
+    batteryCycle;
+    speedLimit;
 }
 __decorate([
     class_validator_1.IsObject(),
@@ -144,6 +162,26 @@ __decorate([
 ], PacketStatusPower.prototype, "speedLimit", void 0);
 exports.PacketStatusPower = PacketStatusPower;
 class PacketStatus {
+    type;
+    timestamp;
+    messageNumber;
+    gps;
+    network;
+    trip;
+    power;
+    isEnabled;
+    isLightsOn;
+    isBuzzerOn;
+    isControllerChecked;
+    isIotChecked;
+    isBatteryChecked;
+    isFallDown;
+    isEBSBrakeOn;
+    isKickstandOn;
+    isLineLocked;
+    isBatteryLocked;
+    reportReason;
+    speed;
 }
 __decorate([
     class_validator_1.IsInt(),

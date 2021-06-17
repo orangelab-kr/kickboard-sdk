@@ -13,6 +13,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.convertBatteryPacket = exports.PacketBattery = void 0;
 const class_validator_1 = require("class-validator");
 class PacketBattery {
+    type;
+    batterySN;
+    totalTrip;
+    totalTime;
+    totalCapacity;
+    cellType;
+    cells;
 }
 __decorate([
     class_validator_1.IsInt(),
