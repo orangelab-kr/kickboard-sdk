@@ -70,7 +70,10 @@ class KickboardService extends events_1.EventEmitter {
     /** 메세지를 통한 패킷을 가져옵니다. */
     getPacket(res) {
         try {
-            const content = res.content.toString();
+            const ignoreCharacters = [0x08];
+            const content = res.content
+                .filter((byte) => !ignoreCharacters.includes(byte))
+                .toString();
             const packet = (0, __1.convertPacket)(JSON.parse(content));
             return packet;
         }

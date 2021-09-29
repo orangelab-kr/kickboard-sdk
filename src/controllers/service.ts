@@ -78,7 +78,10 @@ export class KickboardService extends EventEmitter {
   /** 메세지를 통한 패킷을 가져옵니다. */
   public getPacket(res: amqplib.ConsumeMessage): Packet | undefined {
     try {
-      const content = res.content.toString();
+      const ignoreCharacters = [0x08];
+      const content = res.content
+        .filter((byte) => !ignoreCharacters.includes(byte))
+        .toString();
       const packet = convertPacket(JSON.parse(content));
       return packet;
     } catch (err: any) {
