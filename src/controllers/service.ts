@@ -81,7 +81,7 @@ export class KickboardService extends EventEmitter {
       const content = res.content.toString();
       const packet = convertPacket(JSON.parse(content));
       return packet;
-    } catch (err) {
+    } catch (err: any) {
       this.getDoneFunction(res)();
     }
   }

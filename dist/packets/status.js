@@ -41,35 +41,35 @@ class PacketStatusGps {
     speed;
 }
 __decorate([
-    class_validator_1.IsNotEmpty(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", dayjs_1.Dayjs)
 ], PacketStatusGps.prototype, "timestamp", void 0);
 __decorate([
-    class_validator_1.IsInt(),
-    class_validator_1.Min(-90),
-    class_validator_1.Max(90),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(-90),
+    (0, class_validator_1.Max)(90),
     __metadata("design:type", Number)
 ], PacketStatusGps.prototype, "latitude", void 0);
 __decorate([
-    class_validator_1.IsInt(),
-    class_validator_1.Min(-180),
-    class_validator_1.Max(180),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(-180),
+    (0, class_validator_1.Max)(180),
     __metadata("design:type", Number)
 ], PacketStatusGps.prototype, "longitude", void 0);
 __decorate([
-    class_validator_1.IsInt(),
-    class_validator_1.Min(0),
-    class_validator_1.Max(255),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(255),
     __metadata("design:type", Number)
 ], PacketStatusGps.prototype, "satelliteUsedCount", void 0);
 __decorate([
-    class_validator_1.IsBoolean(),
+    (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], PacketStatusGps.prototype, "isValid", void 0);
 __decorate([
-    class_validator_1.IsInt(),
-    class_validator_1.Min(0),
-    class_validator_1.Max(255),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(255),
     __metadata("design:type", Number)
 ], PacketStatusGps.prototype, "speed", void 0);
 exports.PacketStatusGps = PacketStatusGps;
@@ -80,21 +80,21 @@ class PacketStatusNetwork {
     mnc;
 }
 __decorate([
-    class_validator_1.IsBoolean(),
+    (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], PacketStatusNetwork.prototype, "isRoaming", void 0);
 __decorate([
-    class_validator_1.IsInt(),
-    class_validator_1.Min(0),
-    class_validator_1.Max(99),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(99),
     __metadata("design:type", Number)
 ], PacketStatusNetwork.prototype, "signalStrength", void 0);
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PacketStatusNetwork.prototype, "mcc", void 0);
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PacketStatusNetwork.prototype, "mnc", void 0);
 exports.PacketStatusNetwork = PacketStatusNetwork;
@@ -103,11 +103,11 @@ class PacketStatusTrip {
     distance;
 }
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PacketStatusTrip.prototype, "time", void 0);
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PacketStatusTrip.prototype, "distance", void 0);
 exports.PacketStatusTrip = PacketStatusTrip;
@@ -128,13 +128,13 @@ class PacketStatusPowerDetails {
     isCharging;
 }
 __decorate([
-    class_validator_1.IsInt(),
-    class_validator_1.Min(0),
-    class_validator_1.Max(100),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(100),
     __metadata("design:type", Number)
 ], PacketStatusPowerDetails.prototype, "battery", void 0);
 __decorate([
-    class_validator_1.IsBoolean(),
+    (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], PacketStatusPowerDetails.prototype, "isCharging", void 0);
 exports.PacketStatusPowerDetails = PacketStatusPowerDetails;
@@ -145,19 +145,19 @@ class PacketStatusPower {
     speedLimit;
 }
 __decorate([
-    class_validator_1.IsObject(),
+    (0, class_validator_1.IsObject)(),
     __metadata("design:type", PacketStatusPowerDetails)
 ], PacketStatusPower.prototype, "scooter", void 0);
 __decorate([
-    class_validator_1.IsObject(),
+    (0, class_validator_1.IsObject)(),
     __metadata("design:type", PacketStatusPowerDetails)
 ], PacketStatusPower.prototype, "iot", void 0);
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PacketStatusPower.prototype, "batteryCycle", void 0);
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PacketStatusPower.prototype, "speedLimit", void 0);
 exports.PacketStatusPower = PacketStatusPower;
@@ -184,87 +184,87 @@ class PacketStatus {
     speed;
 }
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", String)
 ], PacketStatus.prototype, "type", void 0);
 __decorate([
-    class_validator_1.IsNotEmpty(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", dayjs_1.Dayjs)
 ], PacketStatus.prototype, "timestamp", void 0);
 __decorate([
-    class_validator_1.IsInt(),
-    class_validator_1.Min(0),
-    class_validator_1.Max(255),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(255),
     __metadata("design:type", Number)
 ], PacketStatus.prototype, "messageNumber", void 0);
 __decorate([
-    class_validator_1.IsObject(),
+    (0, class_validator_1.IsObject)(),
     __metadata("design:type", PacketStatusGps)
 ], PacketStatus.prototype, "gps", void 0);
 __decorate([
-    class_validator_1.IsObject(),
+    (0, class_validator_1.IsObject)(),
     __metadata("design:type", PacketStatusNetwork)
 ], PacketStatus.prototype, "network", void 0);
 __decorate([
-    class_validator_1.IsObject(),
+    (0, class_validator_1.IsObject)(),
     __metadata("design:type", PacketStatusTrip)
 ], PacketStatus.prototype, "trip", void 0);
 __decorate([
-    class_validator_1.IsObject(),
+    (0, class_validator_1.IsObject)(),
     __metadata("design:type", PacketStatusPower)
 ], PacketStatus.prototype, "power", void 0);
 __decorate([
-    class_validator_1.IsBoolean(),
+    (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], PacketStatus.prototype, "isEnabled", void 0);
 __decorate([
-    class_validator_1.IsBoolean(),
+    (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], PacketStatus.prototype, "isLightsOn", void 0);
 __decorate([
-    class_validator_1.IsBoolean(),
+    (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], PacketStatus.prototype, "isBuzzerOn", void 0);
 __decorate([
-    class_validator_1.IsBoolean(),
+    (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], PacketStatus.prototype, "isControllerChecked", void 0);
 __decorate([
-    class_validator_1.IsBoolean(),
+    (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], PacketStatus.prototype, "isIotChecked", void 0);
 __decorate([
-    class_validator_1.IsBoolean(),
+    (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], PacketStatus.prototype, "isBatteryChecked", void 0);
 __decorate([
-    class_validator_1.IsBoolean(),
+    (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], PacketStatus.prototype, "isFallDown", void 0);
 __decorate([
-    class_validator_1.IsBoolean(),
+    (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], PacketStatus.prototype, "isEBSBrakeOn", void 0);
 __decorate([
-    class_validator_1.IsBoolean(),
+    (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], PacketStatus.prototype, "isKickstandOn", void 0);
 __decorate([
-    class_validator_1.IsBoolean(),
+    (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], PacketStatus.prototype, "isLineLocked", void 0);
 __decorate([
-    class_validator_1.IsBoolean(),
+    (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], PacketStatus.prototype, "isBatteryLocked", void 0);
 __decorate([
-    class_validator_1.IsArray(),
+    (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
 ], PacketStatus.prototype, "reportReason", void 0);
 __decorate([
-    class_validator_1.IsInt(),
-    class_validator_1.Min(0),
-    class_validator_1.Max(255),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(255),
     __metadata("design:type", Number)
 ], PacketStatus.prototype, "speed", void 0);
 exports.PacketStatus = PacketStatus;
@@ -318,10 +318,10 @@ function convertStatusPacket(original) {
     const charging = getChargingStatus(original.pw);
     return {
         type: 'status',
-        timestamp: dayjs_1.default(original.rtc),
+        timestamp: (0, dayjs_1.default)(original.rtc),
         messageNumber: original.mn,
         gps: {
-            timestamp: dayjs_1.default(original.gtc),
+            timestamp: (0, dayjs_1.default)(original.gtc),
             latitude: original.la,
             longitude: original.lo,
             satelliteUsedCount: original.su,

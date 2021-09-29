@@ -18,12 +18,12 @@ __exportStar(require("./info"), exports);
 __exportStar(require("./status"), exports);
 function convertPacket(original) {
     if (original.mt === 1)
-        return _1.convertInfoPacket(original);
+        return (0, _1.convertInfoPacket)(original);
     else if (original.mt === 2)
-        return _1.convertStatusPacket(original);
+        return (0, _1.convertStatusPacket)(original);
     else if (original.mt === 4)
-        return _1.convertConfigPacket(original);
+        return (0, _1.convertConfigPacket)(original);
     else if (original.mt === 5)
-        return _1.convertBatteryPacket(original);
+        return (0, _1.convertBatteryPacket)(original);
 }
 exports.convertPacket = convertPacket;

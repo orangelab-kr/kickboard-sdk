@@ -270,7 +270,6 @@ export class KickboardClient {
       autoDelete: true,
     });
 
-    const options = { noAck: true };
     const pattern = this.getKickboardPattern();
     await channel.bindQueue(subscribe.id, this.service.exchange, pattern);
     const onMessage = async (res: ConsumeMessage | null) => {
@@ -284,7 +283,7 @@ export class KickboardClient {
     };
 
     if (timeout) setTimeout(() => this.stopSubscribe(subscribe), timeout);
-    await channel.consume(subscribe.id, onMessage, options);
+    await channel.consume(subscribe.id, onMessage);
   }
 
   /** 구독을 취소합니다. 듣기가 비활성화됩니다. */
@@ -313,12 +312,7 @@ export class KickboardClient {
 
     const timeout = new Promise((resolve) => setTimeout(resolve, ms));
     const race = <Packet>await Promise.race([response, timeout]);
-    if (!race) {
-      throw Error(
-        `${this.kickboardId} 킥보드에 응답이 없습니다. (최대: ${seconds}초)`
-      );
-    }
-
+    if (!race) throw Error(`킥보드에 응답이 없습니다.`);
     return race;
   }
 

@@ -18,15 +18,15 @@ class PacketConfigGprs {
     password;
 }
 __decorate([
-    class_validator_1.IsString(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], PacketConfigGprs.prototype, "apad", void 0);
 __decorate([
-    class_validator_1.IsString(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], PacketConfigGprs.prototype, "username", void 0);
 __decorate([
-    class_validator_1.IsString(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], PacketConfigGprs.prototype, "password", void 0);
 exports.PacketConfigGprs = PacketConfigGprs;
@@ -38,23 +38,23 @@ class PacketConfigMqtt {
     password;
 }
 __decorate([
-    class_validator_1.IsString(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], PacketConfigMqtt.prototype, "ipAddress", void 0);
 __decorate([
-    class_validator_1.IsPort(),
+    (0, class_validator_1.IsPort)(),
     __metadata("design:type", Number)
 ], PacketConfigMqtt.prototype, "port", void 0);
 __decorate([
-    class_validator_1.IsString(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], PacketConfigMqtt.prototype, "clientId", void 0);
 __decorate([
-    class_validator_1.IsString(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], PacketConfigMqtt.prototype, "username", void 0);
 __decorate([
-    class_validator_1.IsString(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], PacketConfigMqtt.prototype, "password", void 0);
 exports.PacketConfigMqtt = PacketConfigMqtt;
@@ -64,15 +64,15 @@ class PacketConfigReportInterval {
     static;
 }
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PacketConfigReportInterval.prototype, "ping", void 0);
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PacketConfigReportInterval.prototype, "trip", void 0);
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PacketConfigReportInterval.prototype, "static", void 0);
 exports.PacketConfigReportInterval = PacketConfigReportInterval;
@@ -88,42 +88,42 @@ class PacketConfig {
     networkMode;
 }
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", String)
 ], PacketConfig.prototype, "type", void 0);
 __decorate([
-    class_validator_1.IsObject(),
+    (0, class_validator_1.IsObject)(),
     __metadata("design:type", PacketConfigGprs)
 ], PacketConfig.prototype, "gprs", void 0);
 __decorate([
-    class_validator_1.IsObject(),
+    (0, class_validator_1.IsObject)(),
     __metadata("design:type", PacketConfigMqtt)
 ], PacketConfig.prototype, "mqtt", void 0);
 __decorate([
-    class_validator_1.IsObject(),
+    (0, class_validator_1.IsObject)(),
     __metadata("design:type", PacketConfigReportInterval)
 ], PacketConfig.prototype, "reportInterval", void 0);
 __decorate([
-    class_validator_1.IsArray(),
+    (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
 ], PacketConfig.prototype, "networks", void 0);
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PacketConfig.prototype, "impact", void 0);
 __decorate([
-    class_validator_1.IsString(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], PacketConfig.prototype, "bluetoothKey", void 0);
 __decorate([
-    class_validator_1.IsInt(),
-    class_validator_1.Min(8),
-    class_validator_1.Max(50),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(8),
+    (0, class_validator_1.Max)(50),
     __metadata("design:type", Number)
 ], PacketConfig.prototype, "speedLimit", void 0);
 __decorate([
-    class_validator_1.IsString(),
-    class_validator_1.IsIn(['auto', 'gsm', 'wcdma', 'lte', 'td-scdma']),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsIn)(['auto', 'gsm', 'wcdma', 'lte', 'td-scdma']),
     __metadata("design:type", String)
 ], PacketConfig.prototype, "networkMode", void 0);
 exports.PacketConfig = PacketConfig;

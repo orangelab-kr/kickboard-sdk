@@ -22,31 +22,31 @@ class PacketBattery {
     cells;
 }
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", String)
 ], PacketBattery.prototype, "type", void 0);
 __decorate([
-    class_validator_1.IsString(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], PacketBattery.prototype, "batterySN", void 0);
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PacketBattery.prototype, "totalTrip", void 0);
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PacketBattery.prototype, "totalTime", void 0);
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PacketBattery.prototype, "totalCapacity", void 0);
 __decorate([
-    class_validator_1.IsString(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], PacketBattery.prototype, "cellType", void 0);
 __decorate([
-    class_validator_1.IsArray(),
+    (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
 ], PacketBattery.prototype, "cells", void 0);
 exports.PacketBattery = PacketBattery;

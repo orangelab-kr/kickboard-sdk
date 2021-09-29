@@ -17,15 +17,15 @@ class PacketInfoVersion {
     software;
 }
 __decorate([
-    class_validator_1.IsInt(),
-    class_validator_1.Min(0),
-    class_validator_1.Max(65535),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(65535),
     __metadata("design:type", Number)
 ], PacketInfoVersion.prototype, "hardware", void 0);
 __decorate([
-    class_validator_1.IsInt(),
-    class_validator_1.Min(0),
-    class_validator_1.Max(65535),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(65535),
     __metadata("design:type", Number)
 ], PacketInfoVersion.prototype, "software", void 0);
 exports.PacketInfoVersion = PacketInfoVersion;
@@ -38,29 +38,29 @@ class PacketInfo {
     ecuVersion;
 }
 __decorate([
-    class_validator_1.IsInt(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", String)
 ], PacketInfo.prototype, "type", void 0);
 __decorate([
-    class_validator_1.IsString(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], PacketInfo.prototype, "iccId", void 0);
 __decorate([
-    class_validator_1.IsInt(),
-    class_validator_1.Min(0),
-    class_validator_1.Max(65535),
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(65535),
     __metadata("design:type", Number)
 ], PacketInfo.prototype, "productId", void 0);
 __decorate([
-    class_validator_1.IsMACAddress(),
+    (0, class_validator_1.IsMACAddress)(),
     __metadata("design:type", String)
 ], PacketInfo.prototype, "macAddress", void 0);
 __decorate([
-    class_validator_1.IsObject(),
+    (0, class_validator_1.IsObject)(),
     __metadata("design:type", PacketInfoVersion)
 ], PacketInfo.prototype, "iotVersion", void 0);
 __decorate([
-    class_validator_1.IsObject(),
+    (0, class_validator_1.IsObject)(),
     __metadata("design:type", PacketInfoVersion)
 ], PacketInfo.prototype, "ecuVersion", void 0);
 exports.PacketInfo = PacketInfo;
